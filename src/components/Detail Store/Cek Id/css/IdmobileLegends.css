@@ -1,0 +1,27 @@
+.inputMl {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.inputMl input {
+  border: none;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.inputMl button {
+  background-color: #fb9867;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+}
+.inputMl button:hover {
+  background-color: #f46119;
+}
