@@ -10,7 +10,7 @@ export default function WidgetPayment({ historyTransaction }) {
   const [topupAmount, setTopupAmount] = useState("");
   const paymentMethods = [
     { value: "Bank Transfer Bca", label: "Bank Transfer" },
-    { value: "Dana", label: "Dana" },
+    { value: "Dana", label: "Dana (Belom bisa hihihi)" },
   ];
   const idUser = localStorage.getItem("userId");
 

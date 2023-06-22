@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../api";
 import { toast } from "react-toastify";
-
+import Swal from "sweetalert2";
 export default function TotalPrice({
   selectedItem,
   title,
@@ -13,6 +13,7 @@ export default function TotalPrice({
   const [favorites, setFavorites] = useState([]);
   const idUser = localStorage.getItem("userId");
   const [history, setHistory] = useState([]);
+  const [amount, setAmount] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,6 +21,7 @@ export default function TotalPrice({
       .then((response) => {
         setFavorites(response.data.favorites || []);
         setHistory(response.data.history || []);
+        setAmount(response.data.wallet.amount);
       })
       .catch((error) => {
         console.error("Failed to fetch favorites and history:", error);
@@ -41,14 +43,35 @@ export default function TotalPrice({
       .then((response) => {
         setFavorites(updatedFavorites);
         console.log("Data updated in favorites:", response.data);
-        toast.success("Favorite Added");
+        window.location.href = "/favourites";
       })
       .catch((error) => {
         console.error("Failed to update data in favorites:", error);
       });
   };
 
+  console.log("Amount", amount);
+
   const buyNow = () => {
+    if (amount < selectedItem.price) {
+      Swal.fire({
+        title: "Saldo Wallet Kurang",
+        text: "apakah kamu mau top up?",
+        icon: "error",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/wallet";
+        }
+      });
+
+      return;
+    }
+
+    const updatedAmount = amount - selectedItem.price;
+
     const transaction = {
       price: selectedItem.price,
       jumlah: selectedItem.jumlah,
@@ -56,17 +79,38 @@ export default function TotalPrice({
       genre,
       rating,
       image,
+      status: true,
       date: new Date().toLocaleString(),
     };
 
     const updatedHistory = [...history, transaction];
 
     axios
-      .put(`${API_URL}/${idUser}`, { history: updatedHistory })
+      .put(`${API_URL}/${idUser}`, {
+        history: updatedHistory,
+        wallet: { amount: updatedAmount },
+      })
       .then((response) => {
         setHistory(updatedHistory);
-        console.log("Data updated in history:", response.data);
-        toast.success("Transaction successful");
+        setAmount(updatedAmount);
+
+        Swal.fire({
+          title: "Do you want to buy this item?",
+          showCancelButton: true,
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Transaction Success",
+              text: "",
+              icon: "success",
+              confirmButtonText: "OK",
+            }).then(() => {
+              window.location.href = "/wallet";
+            });
+          }
+        });
       })
       .catch((error) => {
         console.error("Failed to update data in history:", error);
@@ -78,6 +122,7 @@ export default function TotalPrice({
       <div className="game-profile-price__value">
         {selectedItem && (
           <div>
+            <p>Wallet Rp. {amount.toLocaleString()}</p>
             <p>Rp.{selectedItem.price.toLocaleString()}</p>
             {title === "Mobile Legend" && <p>{selectedItem.jumlah} Diamond</p>}
             {title === "Valorant" && <p>{selectedItem.jumlah} Point</p>}

@@ -33,7 +33,7 @@ export default function DetailStore({
           <main className="page-main">
             <ul className="uk-breadcrumb">
               <li>
-                <a href="09_games-store.html">
+                <a href="/store">
                   <span data-uk-icon="chevron-left"></span>
                   <span>Back to Store</span>
                 </a>
