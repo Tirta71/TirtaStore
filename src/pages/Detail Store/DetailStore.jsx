@@ -20,7 +20,6 @@ export default function DetailStore({
     setSelectedItem(item);
   };
   const handleFormSubmit = (data) => {
-    // Handle form submission logic here
     console.log("Form submitted:", data);
   };
   return (

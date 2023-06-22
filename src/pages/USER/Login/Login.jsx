@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,8 +40,8 @@ export default function Login() {
               localStorage.setItem("userId", userId);
               toast.success("Login Success");
               setTimeout(() => {
-                navigate("/");
-              }, 2000);
+                window.location.href = "/";
+              }, 3000);
             })
             .catch((error) => {
               console.error("Failed to update isLogin", error.response.data);

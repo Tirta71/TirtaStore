@@ -11,7 +11,6 @@ export default function HeaderHome() {
     axios
       .get(`${API_URL}/${userId}`)
       .then((result) => {
-        console.log(result.data);
         setDataGambar(result.data.image);
       })
       .catch((err) => {
@@ -34,7 +33,6 @@ export default function HeaderHome() {
       });
   };
 
-  console.log("Data Gambar", dataGambar);
   return (
     <header className="page-header">
       <div className="page-header__inner">

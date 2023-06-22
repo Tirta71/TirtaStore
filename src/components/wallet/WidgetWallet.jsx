@@ -1,7 +1,7 @@
 import React from "react";
+import PageLoader from "../Loading/PageLoader";
 
 export default function WidgetWallet({ dataWallet }) {
-  console.log(dataWallet);
   return (
     <div className="uk-width-2-3@l">
       <div className="widjet --wallet">
@@ -10,7 +10,11 @@ export default function WidgetWallet({ dataWallet }) {
         </div>
         <div className="widjet__body">
           <div className="wallet-info">
-            <div className="wallet-value">Rp {dataWallet.amount}</div>
+            {dataWallet.amount ? (
+              <div className="wallet-value">Rp {dataWallet.amount}</div>
+            ) : (
+              <PageLoader />
+            )}
             <div className="wallet-label">
               {dataWallet.amount === 0 ? "Disable" : "Available"}
             </div>

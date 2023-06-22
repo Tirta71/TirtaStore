@@ -1,0 +1,74 @@
+.container {
+  margin: 2rem;
+  padding: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.wallet-container {
+  display: flex;
+  align-items: center;
+}
+
+.wallet-amount {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.wallet-edit input {
+  width: 60px;
+  margin-right: 10px;
+  padding: 4px;
+}
+
+.wallet-edit button {
+  padding: 4px 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.history-edit {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.history-edit input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.history-edit button {
+  padding: 4px 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.history-details {
+  margin-bottom: 10px;
+}
+
+.edit-button {
+  padding: 4px 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

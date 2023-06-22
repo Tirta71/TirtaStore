@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,58 +18,31 @@ import PubgMobile from "./pages/Games/PubgMobile";
 import Login from "./pages/USER/Login/Login";
 import Register from "./pages/USER/Register/Register";
 import "react-toastify/dist/ReactToastify.css";
+import UserForm from "./components/admin/Admin";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (userId) {
-      setIsLogin(true);
-    }
-  }, []);
-
-  const PrivateRoute = ({ element: Element, ...rest }) => {
-    return isLogin ? <Element {...rest} /> : <Navigate to="/login" replace />;
-  };
+  const userId = localStorage.getItem("userId");
+  const isLoggedIn = !!userId;
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<PrivateRoute element={<Home />} />} />
-
+        <Route
+          path="/"
+          element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/profile"
-          element={<PrivateRoute element={<Profile />} />}
-        />
-        <Route
-          path="/favourites"
-          element={<PrivateRoute element={<Favorite />} />}
-        />
-        <Route path="/wallet" element={<PrivateRoute element={<Wallet />} />} />
-        <Route path="/store" element={<PrivateRoute element={<Store />} />} />
-        <Route
-          path="/detail-store"
-          element={<PrivateRoute element={<DetailStore />} />}
-        />
-        <Route
-          path="/mobile-legend"
-          element={<PrivateRoute element={<MobileLegends />} />}
-        />
-        <Route
-          path="/valorant"
-          element={<PrivateRoute element={<Valorant />} />}
-        />
-        <Route
-          path="/genshin-impact"
-          element={<PrivateRoute element={<GenshinImpact />} />}
-        />
-        <Route
-          path="/pubg-mobile"
-          element={<PrivateRoute element={<PubgMobile />} />}
-        />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/favourites" element={<Favorite />} />
+        <Route path="/wallet" element={<Wallet />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/detail-store" element={<DetailStore />} />
+        <Route path="/mobile-legend" element={<MobileLegends />} />
+        <Route path="/valorant" element={<Valorant />} />
+        <Route path="/genshin-impact" element={<GenshinImpact />} />
+        <Route path="/pubg-mobile" element={<PubgMobile />} />
+        <Route path="/admin" element={<UserForm />} />
       </Routes>
     </Router>
   );

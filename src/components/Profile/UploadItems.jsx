@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function UploadItems({ favorite }) {
-  console.log(favorite);
   return (
     <div class="uk-width-1-3@l">
       <div class="widjet --upload">

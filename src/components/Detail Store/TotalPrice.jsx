@@ -12,15 +12,17 @@ export default function TotalPrice({
 }) {
   const [favorites, setFavorites] = useState([]);
   const idUser = localStorage.getItem("userId");
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     axios
       .get(`${API_URL}/${idUser}`)
       .then((response) => {
         setFavorites(response.data.favorites || []);
+        setHistory(response.data.history || []);
       })
       .catch((error) => {
-        console.error("Failed to fetch favorites:", error);
+        console.error("Failed to fetch favorites and history:", error);
       });
   }, [idUser]);
 
@@ -39,10 +41,35 @@ export default function TotalPrice({
       .then((response) => {
         setFavorites(updatedFavorites);
         console.log("Data updated in favorites:", response.data);
-        toast.success("Favorit Added");
+        toast.success("Favorite Added");
       })
       .catch((error) => {
         console.error("Failed to update data in favorites:", error);
+      });
+  };
+
+  const buyNow = () => {
+    const transaction = {
+      price: selectedItem.price,
+      jumlah: selectedItem.jumlah,
+      title,
+      genre,
+      rating,
+      image,
+      date: new Date().toLocaleString(),
+    };
+
+    const updatedHistory = [...history, transaction];
+
+    axios
+      .put(`${API_URL}/${idUser}`, { history: updatedHistory })
+      .then((response) => {
+        setHistory(updatedHistory);
+        console.log("Data updated in history:", response.data);
+        toast.success("Transaction successful");
+      })
+      .catch((error) => {
+        console.error("Failed to update data in history:", error);
       });
   };
 
@@ -59,7 +86,11 @@ export default function TotalPrice({
           </div>
         )}
       </div>
-      <button className="uk-button uk-button-danger uk-width-1-1" type="button">
+      <button
+        className="uk-button uk-button-danger uk-width-1-1"
+        type="button"
+        onClick={buyNow}
+      >
         <span className="ico_shopping-cart"></span>
         <span>Buy Now</span>
       </button>

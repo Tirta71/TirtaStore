@@ -1,0 +1,107 @@
+.widjet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.widjet__head h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.edit-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.widjet__body {
+  padding: 16px 20px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.payment-option input[type="radio"] {
+  margin-right: 8px;
+}
+
+.payment-option label {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button {
+  background-color: #f65100;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #a03500;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.modal-content h3 {
+  text-align: center;
+}
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  line-height: 10px;
+}
+
+.modal-close-button,
+.btn-topup {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #f65100;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.modal-content .input-topup {
+  border: none;
+  background-color: #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 2px black;
+}
+
+.btn-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.modal-close-button:hover,
+.btn-topup:hover {
+  background-color: #ccc;
+  color: black;
+}

@@ -6,11 +6,10 @@ import WidgetWallet from "../components/wallet/WidgetWallet";
 import WidgetPayment from "../components/wallet/WidgetPayment";
 import axios from "axios";
 import { API_URL } from "../api";
-import Activity from "../components/Profile/Activity";
-import WalletActivity from "../components/wallet/WalletActivity";
 
 export default function Wallet() {
   const [dataWallet, setDataWallet] = useState([]);
+  const [dataTransaction, setDataTransaction] = useState([]);
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
@@ -18,8 +17,8 @@ export default function Wallet() {
       axios
         .get(`${API_URL}/${userId}`)
         .then((response) => {
-          console.log(response.data);
           setDataWallet(response.data.wallet);
+          setDataTransaction(response.data.history);
         })
         .catch((error) => {
           console.error("Failed to fetch wallet data", error);
@@ -38,7 +37,7 @@ export default function Wallet() {
           <main className="page-main">
             <div className="uk-grid" data-uk-grid>
               <WidgetWallet dataWallet={dataWallet} />
-              <WidgetPayment />
+              <WidgetPayment historyTransaction={dataTransaction} />
             </div>
           </main>
         </div>
