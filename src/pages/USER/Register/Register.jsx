@@ -41,7 +41,7 @@ export default function Register() {
             image:
               "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
             wallet: {
-              amount: 0,
+              amount: 10,
             },
             history: [],
             isLogin: false,

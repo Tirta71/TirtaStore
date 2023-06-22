@@ -29,20 +29,47 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={isLoggedIn ? <Home /> : <Navigate to="/login" replace />}
+          element={
+            isLoggedIn ? (
+              <Home isLoggedIn={isLoggedIn} />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/favourites" element={<Favorite />} />
-        <Route path="/wallet" element={<Wallet />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/detail-store" element={<DetailStore />} />
-        <Route path="/mobile-legend" element={<MobileLegends />} />
-        <Route path="/valorant" element={<Valorant />} />
-        <Route path="/genshin-impact" element={<GenshinImpact />} />
-        <Route path="/pubg-mobile" element={<PubgMobile />} />
-        <Route path="/admin" element={<UserForm />} />
+        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/register"
+          element={<Register isLoggedIn={isLoggedIn} />}
+        />
+        <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/favourites"
+          element={<Favorite isLoggedIn={isLoggedIn} />}
+        />
+        <Route path="/wallet" element={<Wallet isLoggedIn={isLoggedIn} />} />
+        <Route path="/store" element={<Store isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/detail-store"
+          element={<DetailStore isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/mobile-legend"
+          element={<MobileLegends isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/valorant"
+          element={<Valorant isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/genshin-impact"
+          element={<GenshinImpact isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/pubg-mobile"
+          element={<PubgMobile isLoggedIn={isLoggedIn} />}
+        />
+        <Route path="/admin" element={<UserForm isLoggedIn={isLoggedIn} />} />
       </Routes>
     </Router>
   );
