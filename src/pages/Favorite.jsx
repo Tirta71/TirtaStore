@@ -7,6 +7,7 @@ import GameCard from "../components/Favourite/GameCard";
 
 import axios from "axios";
 import { API_URL } from "../api";
+import { toast } from "react-toastify";
 
 export default function Favorite() {
   const [dataFavorite, setDataFavorite] = useState([]);
@@ -17,9 +18,9 @@ export default function Favorite() {
     setIsLoading(true);
 
     axios
-      .get(`${API_URL}/${idUser}`)
+      .get(`${API_URL}/${idUser}/favorites`)
       .then((response) => {
-        setDataFavorite(response.data.favorites);
+        setDataFavorite(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -29,14 +30,15 @@ export default function Favorite() {
   }, [idUser]);
 
   const handleDeleteItem = (index) => {
-    const updatedFavorites = [...dataFavorite];
-    updatedFavorites.splice(index, 1);
+    const itemToDelete = dataFavorite[index];
 
     axios
-      .put(`${API_URL}/${idUser}`, { favorites: updatedFavorites })
+      .delete(`${API_URL}/${idUser}/favorites/${itemToDelete.id}`)
       .then(() => {
+        const updatedFavorites = dataFavorite.filter((item, i) => i !== index);
         setDataFavorite(updatedFavorites);
         console.log("Item deleted from favorites");
+        toast.success("Berhasil delete Item");
       })
       .catch((error) => {
         console.error("Failed to delete item from favorites:", error);

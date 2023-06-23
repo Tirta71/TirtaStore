@@ -1,34 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import WalletActivity from "./WalletActivity";
 import "./wallet.css";
 import { API_URL } from "../../api";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export default function WidgetPayment({ historyTransaction }) {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [topupAmount, setTopupAmount] = useState("");
+  const avatarImage =
+    "https://cdn-2.tstatic.net/bangka/foto/bank/images/20211222-bca.jpg";
   const paymentMethods = [
     { value: "Bank Transfer Bca", label: "Bank Transfer" },
     { value: "Dana", label: "Dana (Belom bisa hihihi)" },
   ];
   const idUser = localStorage.getItem("userId");
-
-  useEffect(() => {
-    // Fetch history transaction data from API
-    fetchHistoryTransaction();
-  }, []);
-
-  const fetchHistoryTransaction = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/${idUser}`); // Replace with the actual API URL
-      const data = response.data;
-
-      return data;
-    } catch (error) {
-      console.error("Failed to fetch history transaction:", error);
-    }
-  };
 
   const handlePaymentMethodChange = (event) => {
     setSelectedPaymentMethod(event.target.value);
@@ -36,7 +24,12 @@ export default function WidgetPayment({ historyTransaction }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setShowModal(true);
+
+    !selectedPaymentMethod
+      ? toast.error("Pilih pembayaran")
+      : selectedPaymentMethod === "Dana"
+      ? toast.error("Dana belum bisa hihihi")
+      : setShowModal(true);
   };
 
   const handleCloseModal = () => {
@@ -49,24 +42,29 @@ export default function WidgetPayment({ historyTransaction }) {
 
   const handleTopupSubmit = async () => {
     try {
+      if (topupAmount <= 10000) {
+        toast.error("Minimal top up 10000");
+        return;
+      }
       const data = {
         price: topupAmount,
         date: new Date().toLocaleString(),
         title: "Top Up wallet",
         status: false,
-        image:
-          "https://cdn-2.tstatic.net/bangka/foto/bank/images/20211222-bca.jpg",
+        image: `${avatarImage}`,
       };
 
-      // Perform the top-up action and update the history
-      const response = await axios.put(`${API_URL}/${idUser}`, {
-        history: [...historyTransaction, data],
-      }); // Ganti dengan URL API yang sesuai
-
-      console.log("Top-up successful:", response.data);
-      // Close the modal and update the historyTransaction state
+      await axios.post(`${API_URL}/${idUser}/walletTransaction`, data);
+      Swal.fire(
+        "Top Up Berhasil",
+        "Tunggu Admin validasi data Dulu ya",
+        "Success"
+      ).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });
       setShowModal(false);
-      historyTransaction(response.data.history || []);
     } catch (error) {
       console.error("Failed to perform top-up:", error);
     }
@@ -77,9 +75,6 @@ export default function WidgetPayment({ historyTransaction }) {
       <div className="widjet --payment-method">
         <div className="widjet__head">
           <h3 className="uk-text-lead">Payment Method</h3>
-          <a href="#!" className="edit-link">
-            Edit
-          </a>
         </div>
         <div className="widjet__body">
           <form onSubmit={handleSubmit}>
@@ -115,13 +110,16 @@ export default function WidgetPayment({ historyTransaction }) {
               <p>Payment Method: {selectedPaymentMethod}</p>
               <p>Transfer: 8213132 BCA</p>
               <p>AN: Tirta Samara</p>
-
+              <p style={{ color: "red", lineHeight: "20px" }}>
+                Note : Pastikan Transfer Sesuai No Rekening dan jumlah topup
+              </p>
               <input
                 type="text"
                 placeholder="Masukkan Jumlah Topup"
                 className="input-topup"
                 value={topupAmount}
                 onChange={handleTopupAmountChange}
+                style={{ width: "100%" }}
               />
             </div>
 

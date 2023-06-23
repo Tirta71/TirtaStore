@@ -1,25 +1,31 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 
 export default function Activity({ profileData }) {
   return (
-    <div class="widjet --activity">
-      <div class="widjet__head">
-        <h3 class="uk-text-lead">Recent Transaction</h3>
+    <div className="widjet --activity">
+      <div className="widjet__head">
+        <h3 className="uk-text-lead">Recent Transaction</h3>
       </div>
 
-      {profileData.history.map((item) => (
-        <div class="widjet__body">
-          <div class="widjet-game">
-            <div class="widjet-game__media">
+      {profileData.map((item) => (
+        <div className="widjet__body">
+          <div className="widjet-game">
+            <div className="widjet-game__media">
               <a>
                 <img src={item.image} />
               </a>
             </div>
-            <div class="widjet-game__info">
-              <a class="widjet-game__title">{item.title}</a>
-              <div class="widjet-game__record">{item.date}</div>
-              <strong>{item.status ? "SUCCESS" : "PENDING"}</strong>
-              <div class="widjet-game__last-played">Rp. {item.price}</div>
+            <div className="widjet-game__info">
+              <a className="widjet-game__title">{item.title}</a>
+              <div className="widjet-game__record">{item.date}</div>
+              <strong style={{ color: item.status ? "green" : "red" }}>
+                {item.status ? "SUCCESS" : "PENDING"}
+              </strong>
+              <div className="widjet-game__last-played">
+                Rp. {item.price.toLocaleString()}
+              </div>
             </div>
           </div>
         </div>

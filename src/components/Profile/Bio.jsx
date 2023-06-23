@@ -2,11 +2,11 @@ import React from "react";
 
 export default function Bio({ profileData }) {
   return (
-    <div class="widjet --bio">
-      <div class="widjet__head">
-        <h3 class="uk-text-lead">Bio</h3>
+    <div className="widjet --bio">
+      <div className="widjet__head">
+        <h3 className="uk-text-lead">Bio</h3>
       </div>
-      <div class="widjet__body">
+      <div className="widjet__body">
         <span>{profileData.Bio}</span>
       </div>
     </div>

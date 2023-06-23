@@ -36,14 +36,12 @@ export default function Register() {
             email,
             username,
             password,
-            favorites: [],
             Bio: "",
             image:
               "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
             wallet: {
               amount: 10,
             },
-            history: [],
             isLogin: false,
           };
 

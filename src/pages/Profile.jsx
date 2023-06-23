@@ -13,20 +13,29 @@ import PageLoader from "../components/Loading/PageLoader";
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [history, setHistory] = useState([]);
+  const [favorite, setFavorite] = useState([]);
 
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (userId) {
       setIsLoading(true);
-      axios
-        .get(`${API_URL}/${userId}`)
-        .then((result) => {
-          setProfileData(result.data);
-          setIsLoading(false);
+
+      Promise.all([
+        axios.get(`${API_URL}/${userId}`),
+        axios.get(`${API_URL}/${userId}/history`),
+        axios.get(`${API_URL}/${userId}/favorites`),
+      ])
+        .then(([profileResult, historyResult, favoriteResult]) => {
+          setProfileData(profileResult.data);
+          setHistory(historyResult.data);
+          setFavorite(favoriteResult.data);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
           setIsLoading(false);
         });
     }
@@ -48,9 +57,9 @@ export default function Profile() {
                 <div className="uk-width-2-3@l">
                   {profileData && <ProfileUser profileData={profileData} />}
                   {profileData && <Bio profileData={profileData} />}
-                  {profileData && <Activity profileData={profileData} />}
+                  {profileData && <Activity profileData={history} />}
                 </div>
-                {profileData && <UploadItems favorite={profileData} />}
+                {profileData && <UploadItems favorite={favorite} />}
               </div>
             )}
           </main>

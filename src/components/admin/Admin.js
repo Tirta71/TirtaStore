@@ -1,221 +1,163 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./admin.css"; // Import CSS file
+import { useEffect, useState } from "react";
+import { API_URL } from "../../api";
+import { toast } from "react-toastify";
+import "./admin.css";
 
-const UserTable = () => {
-  const [userData, setUserData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editedAmount, setEditedAmount] = useState("");
-  const [editedStatus, setEditedStatus] = useState(false);
-  const [editedHistoryIndex, setEditedHistoryIndex] = useState(null);
+export default function UserForm() {
+  const [transactionData, setTransactionData] = useState(null);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    fetchUserData();
+    fetchTransactionData();
+    const interval = setInterval(fetchTransactionData, 6000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
+
+  useEffect(() => {
+    if (transactionData) {
+      fetchUserData();
+    }
+  }, [transactionData]);
+
+  const fetchTransactionData = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      const users = response.data;
+
+      const transactionsPromises = users.map(async (user) => {
+        const transactionsResponse = await axios.get(
+          `${API_URL}/${user.id}/walletTransaction`
+        );
+        const transactions = transactionsResponse.data.map((transaction) => ({
+          ...transaction,
+          userId: user.id,
+        }));
+        return transactions;
+      });
+
+      const transactions = await Promise.all(transactionsPromises);
+      setTransactionData(transactions.flat());
+    } catch (error) {
+      console.error("Failed to fetch transaction data:", error);
+      setTransactionData(null);
+    }
+  };
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(
-        "https://6491b88b2f2c7ee6c2c8cc9b.mockapi.io/user"
-      );
-      setUserData(response.data);
-      setLoading(false);
+      const userIds = transactionData.map((transaction) => transaction.userId);
+      const uniqueUserIds = Array.from(new Set(userIds));
+
+      const usersPromises = uniqueUserIds.map(async (userId) => {
+        const userResponse = await axios.get(`${API_URL}/${userId}`);
+        return { [userId]: userResponse.data.username };
+      });
+
+      const usersData = await Promise.all(usersPromises);
+      const mergedUserData = Object.assign({}, ...usersData);
+
+      setUserData(mergedUserData);
     } catch (error) {
       console.error("Failed to fetch user data:", error);
-      setLoading(false);
+      setUserData({});
     }
   };
 
-  const handleEditWallet = async (userId) => {
+  const handleUpdateStatus = async (userId, itemId, newStatus) => {
     try {
-      const userIndex = userData.findIndex((user) => user.id === userId);
-      if (userIndex !== -1) {
-        const updatedData = { ...userData[userIndex] };
-        updatedData.wallet.amount = parseInt(editedAmount);
+      const updatedData = transactionData.map((item) => {
+        if (item.id === itemId && item.userId === userId) {
+          return { ...item, status: newStatus };
+        }
+        return item;
+      });
 
-        const response = await axios.put(
-          `https://6491b88b2f2c7ee6c2c8cc9b.mockapi.io/user/${userId}`,
-          updatedData
-        );
+      await axios.put(`${API_URL}/${userId}/walletTransaction/${itemId}`, {
+        status: newStatus,
+      });
 
-        const updatedUserData = [...userData];
-        updatedUserData[userIndex] = response.data;
-        setUserData(updatedUserData);
+      setTransactionData(updatedData);
 
-        console.log("Wallet data updated successfully");
-        setEditedAmount("");
-      } else {
-        console.error("User data not found for ID:", userId);
-      }
+      toast.success("Status diperbarui");
     } catch (error) {
-      console.error("Failed to update wallet data:", error);
+      console.error("Failed to update status:", error);
     }
   };
 
-  const handleEditHistoryStatus = async (
-    userIndex,
-    historyIndex,
-    updatedStatus
-  ) => {
-    try {
-      const updatedData = { ...userData[userIndex] };
-      updatedData.history[historyIndex].status = updatedStatus;
+  const filteredTransactionData = transactionData
+    ? transactionData.filter((item) => !item.status)
+    : [];
 
-      const response = await axios.put(
-        `https://6491b88b2f2c7ee6c2c8cc9b.mockapi.io/user/${updatedData.id}`,
-        updatedData
-      );
-
-      const updatedUserData = [...userData];
-      updatedUserData[userIndex] = response.data;
-      setUserData(updatedUserData);
-
-      console.log("History status updated successfully");
-    } catch (error) {
-      console.error("Failed to update history status:", error);
+  const transactionsByUser = {};
+  filteredTransactionData.forEach((transaction) => {
+    if (!transactionsByUser[transaction.userId]) {
+      transactionsByUser[transaction.userId] = [];
     }
-  };
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+    transactionsByUser[transaction.userId].push(transaction);
+  });
 
   return (
-    <div className="container">
-      <h2>User Data</h2>
-      <div className="table-container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Created At</th>
-              <th>Image</th>
-              <th>Wallet Amount</th>
-              <th>History</th>
-              <th>Favorites</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userData.map((user, index) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.username}</td>
-                <td>{user.email}</td>
-                <td>{user.createdAt}</td>
-                <td>
-                  <img src={user.image} alt="User Avatar" width="50" />
-                </td>
-                <td>
-                  <div className="wallet-container">
-                    <div className="wallet-amount">{user.wallet.amount}</div>
-                    <div className="wallet-edit">
-                      <input
-                        type="number"
-                        value={editedAmount}
-                        onChange={(e) => setEditedAmount(e.target.value)}
-                      />
-                      <button onClick={() => handleEditWallet(user.id)}>
-                        Save
-                      </button>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <ul>
-                    {user.history.map((history, historyIndex) => (
-                      <li key={historyIndex}>
-                        {editedHistoryIndex === historyIndex ? (
-                          <form
-                            onSubmit={(e) => {
-                              e.preventDefault();
-                              handleEditHistoryStatus(
-                                index,
-                                historyIndex,
-                                editedStatus
-                              );
-                              setEditedHistoryIndex(null);
-                            }}
+    <div className="admin-container">
+      <h2>Transaction Data</h2>
+
+      {filteredTransactionData.length > 0 ? (
+        <div>
+          {Object.keys(transactionsByUser).map((userId) => (
+            <div key={userId}>
+              <h4 style={{ marginTop: "2rem " }}>
+                Username: {userData[userId]}
+              </h4>
+              <table className="transaction-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactionsByUser[userId].map((item) => (
+                    <tr key={item.id} className="transaction-item">
+                      <td>{item.id}</td>
+                      <td>{item.userId}</td>
+                      <td>{item.price}</td>
+                      <td>{item.date}</td>
+                      <td>{item.title}</td>
+                      <td>{item.status ? "True" : "False"}</td>
+                      <td>
+                        {!item.status && (
+                          <button
+                            onClick={() =>
+                              handleUpdateStatus(
+                                item.userId,
+                                item.id,
+                                !item.status
+                              )
+                            }
+                            className="status-button"
                           >
-                            <div className="history-edit">
-                              <input
-                                type="checkbox"
-                                checked={editedStatus}
-                                onChange={(e) =>
-                                  setEditedStatus(e.target.checked)
-                                }
-                              />
-                              <button type="submit">Save</button>
-                            </div>
-                          </form>
-                        ) : (
-                          <div className="history-details">
-                            <strong>Title:</strong> {history.title}
-                            <br />
-                            <strong>Genre:</strong> {history.genre}
-                            <br />
-                            <strong>Rating:</strong> {history.rating}
-                            <br />
-                            <strong>Price:</strong> {history.price}
-                            <br />
-                            <strong>Jumlah:</strong> {history.jumlah}
-                            <br />
-                            <strong>Image:</strong>{" "}
-                            <img
-                              src={history.image}
-                              alt="History Image"
-                              width="50"
-                            />
-                            <br />
-                            <strong>Date:</strong> {history.date}
-                            <br />
-                            {/* Render tombol Edit untuk pengeditan status */}
-                            <strong>Status:</strong>{" "}
-                            {history.status ? "Completed" : "Pending"}
-                            <br />
-                            <button
-                              className="edit-button"
-                              onClick={() =>
-                                setEditedHistoryIndex(historyIndex)
-                              }
-                            >
-                              Edit
-                            </button>
-                          </div>
+                            Update Status
+                          </button>
                         )}
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-                <td>
-                  <ul>
-                    {user.favorites.map((favorite, favoriteIndex) => (
-                      <li key={favoriteIndex}>
-                        <strong>Title:</strong> {favorite.title}
-                        <br />
-                        <strong>Genre:</strong> {favorite.genre}
-                        <br />
-                        <strong>Rating:</strong> {favorite.rating}
-                        <br />
-                        <strong>Image:</strong>{" "}
-                        <img
-                          src={favorite.image}
-                          alt="Favorite Image"
-                          width="50"
-                        />
-                        <br />
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No transaction data with false status available.</p>
+      )}
     </div>
   );
-};
-
-export default UserTable;
+}

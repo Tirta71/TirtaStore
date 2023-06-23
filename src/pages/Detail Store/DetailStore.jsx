@@ -53,6 +53,7 @@ export default function DetailStore({
                   handleFormSubmit={handleFormSubmit}
                 />
               </div>
+
               <div className="uk-width-1-3@s">
                 <GameProfile
                   genre={genre}

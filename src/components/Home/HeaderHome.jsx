@@ -60,7 +60,7 @@ export default function HeaderHome() {
             </div>
           </div>
           <div className="page-header__action">
-            <a className="profile" href="/wallet">
+            <a className="profile" href="/profile">
               <img src={dataGambar} alt="profile" />
             </a>
           </div>

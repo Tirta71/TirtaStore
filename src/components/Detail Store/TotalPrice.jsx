@@ -10,17 +10,13 @@ export default function TotalPrice({
   rating,
   image,
 }) {
-  const [favorites, setFavorites] = useState([]);
   const idUser = localStorage.getItem("userId");
-  const [history, setHistory] = useState([]);
   const [amount, setAmount] = useState([]);
 
   useEffect(() => {
     axios
       .get(`${API_URL}/${idUser}`)
       .then((response) => {
-        setFavorites(response.data.favorites || []);
-        setHistory(response.data.history || []);
         setAmount(response.data.wallet.amount);
       })
       .catch((error) => {
@@ -36,14 +32,14 @@ export default function TotalPrice({
       image,
     };
 
-    const updatedFavorites = [...favorites, newFavorite];
-
     axios
-      .put(`${API_URL}/${idUser}`, { favorites: updatedFavorites })
+      .post(`${API_URL}/${idUser}/favorites`, newFavorite)
       .then((response) => {
-        setFavorites(updatedFavorites);
         console.log("Data updated in favorites:", response.data);
-        window.location.href = "/favourites";
+        toast.success("Favorite add");
+        setTimeout(() => {
+          window.location.href = "/favourites";
+        }, 2000);
       })
       .catch((error) => {
         console.error("Failed to update data in favorites:", error);
@@ -53,10 +49,14 @@ export default function TotalPrice({
   console.log("Amount", amount);
 
   const buyNow = () => {
+    if (!selectedItem || !selectedItem.price) {
+      toast.error("Ups Item nya blm dipilih");
+      return;
+    }
     if (amount < selectedItem.price) {
       Swal.fire({
         title: "Saldo Wallet Kurang",
-        text: "apakah kamu mau top up?",
+        text: "Apakah kamu mau top up?",
         icon: "error",
         showCancelButton: true,
         confirmButtonText: "Yes",
@@ -79,42 +79,46 @@ export default function TotalPrice({
       genre,
       rating,
       image,
-      status: true,
+      status: false,
       date: new Date().toLocaleString(),
     };
 
-    const updatedHistory = [...history, transaction];
+    Swal.fire({
+      title: "Do you want to buy this item?",
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post(`${API_URL}/${idUser}/history`, transaction)
+          .then(() => {
+            axios
+              .put(`${API_URL}/${idUser}`, {
+                wallet: { amount: updatedAmount },
+              })
+              .then(() => {
+                setAmount(updatedAmount);
 
-    axios
-      .put(`${API_URL}/${idUser}`, {
-        history: updatedHistory,
-        wallet: { amount: updatedAmount },
-      })
-      .then((response) => {
-        setHistory(updatedHistory);
-        setAmount(updatedAmount);
-
-        Swal.fire({
-          title: "Do you want to buy this item?",
-          showCancelButton: true,
-          confirmButtonText: "Confirm",
-          cancelButtonText: "Cancel",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Transaction Success",
-              text: "",
-              icon: "success",
-              confirmButtonText: "OK",
-            }).then(() => {
-              window.location.href = "/wallet";
-            });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Failed to update data in history:", error);
-      });
+                Swal.fire({
+                  title: "Transaction Success",
+                  text: "",
+                  icon: "success",
+                  confirmButtonText: "OK",
+                }).then(() => {
+                  // Update data or perform any other actions
+                  window.location.href = "/wallet";
+                });
+              })
+              .catch((error) => {
+                console.error("Failed to update data in history:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Failed to add transaction to history:", error);
+          });
+      }
+    });
   };
 
   return (

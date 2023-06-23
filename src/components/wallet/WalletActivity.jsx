@@ -1,13 +1,20 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from "react";
+import { toast } from "react-toastify";
 
 export default function WalletActivity({ historyTransaction }) {
-  console.log("History ku", historyTransaction);
-
+  const handleViewAll = () => {
+    if (historyTransaction.length === 0) {
+      toast.error("No history transaction");
+      return;
+    }
+    window.location.href = "/profile";
+  };
   return (
     <div className="widjet --activities">
       <div className="widjet__head">
-        <h3 className="uk-text-lead">Activities</h3>
-        <a href="/profile">View All</a>
+        <h3 className="uk-text-lead">History Transaction Game</h3>
+        <a onClick={handleViewAll}>View All</a>
       </div>
       <div className="widjet__body">
         <ul className="activities-list">
@@ -23,12 +30,14 @@ export default function WalletActivity({ historyTransaction }) {
                   {item.title}
                 </a>
                 <div className="activities-item__date">
-                  {item.date && (
-                    <p>{new Date(item.date).toLocaleDateString()}</p>
-                  )}
+                  {item.date && <p>{item.date}</p>}
                 </div>
               </div>
-              <div className="activities-item__price">Rp. {item.price}</div>
+              <div className="activities-item__price">
+                <span style={{ color: item.status ? "green" : "red" }}>
+                  Rp. {parseInt(item.price).toLocaleString()}
+                </span>
+              </div>
             </li>
           ))}
         </ul>

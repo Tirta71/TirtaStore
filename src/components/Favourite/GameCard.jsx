@@ -11,9 +11,7 @@ export default function GameCard({ dataFavorite, handleDelete }) {
         <div className="game-card --horizontal favourites-game" key={index}>
           <div className="game-card__box">
             <div className="game-card__media">
-              <a href="10_game-profile.html">
-                <img src={game.image} alt={game.title} />
-              </a>
+              <img src={game.image} alt={game.title} />
             </div>
             <div className="game-card__info">
               <a className="game-card__title" href={game.slug}>

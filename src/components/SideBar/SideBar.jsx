@@ -8,7 +8,7 @@ export default function SideBar() {
   const location = useLocation();
   const [isLogin, setIsLogin] = useState(false);
   const [favoritesCount, setFavoritesCount] = useState(0);
-
+  const userId = localStorage.getItem("userId");
   const isActiveLink = (match) => {
     return match === "/"
       ? location.pathname === match
@@ -22,15 +22,14 @@ export default function SideBar() {
   };
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
     axios
-      .get(`${API_URL}/${userId}`)
+      .get(`${API_URL}/${userId}/favorites`)
       .then((response) => {
         const isLoggedIn = response.data.isLogin;
         setIsLogin(isLoggedIn);
 
-        if (response.data.favorites) {
-          const count = response.data.favorites.length;
+        if (response.data) {
+          const count = response.data.length;
           setFavoritesCount(count);
         }
       })

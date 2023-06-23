@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import PageLoader from "../Loading/PageLoader";
 
-export default function WidgetWallet({ dataWallet }) {
+export default function WidgetWallet({ dataWallet, historyWallet }) {
+  const [showAllTransactions, setShowAllTransactions] = useState(false);
+
+  const handleViewAll = () => {
+    setShowAllTransactions(!showAllTransactions);
+  };
+
+  const filteredTransactions = showAllTransactions
+    ? historyWallet
+    : historyWallet.filter((item) => !item.status);
+
   return (
     <div className="uk-width-2-3@l">
       <div className="widjet --wallet">
         <div className="widjet__head">
-          <h3 className="uk-text-lead">Wallet</h3>
+          <h3 className="uk-text-lead">Saldo Wallet</h3>
         </div>
         <div className="widjet__body">
           <div className="wallet-info">
@@ -20,6 +30,35 @@ export default function WidgetWallet({ dataWallet }) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="widjet --activity">
+        <div className="widjet__head">
+          <h3 className="uk-text-lead">Wallet Transaction</h3>
+          <a onClick={handleViewAll}>View All</a>
+        </div>
+
+        {filteredTransactions.map((item) => (
+          <div className="widjet__body" key={item.id}>
+            <div className="widjet-game">
+              <div className="widjet-game__media">
+                <a>
+                  <img src={item.image} alt="" />
+                </a>
+              </div>
+              <div className="widjet-game__info">
+                <a className="widjet-game__title">{item.title}</a>
+                <div className="widjet-game__record">{item.date}</div>
+                <strong style={{ color: item.status ? "green" : "red" }}>
+                  {item.status ? "SUCCESS" : "PENDING"}
+                </strong>
+                <div className="widjet-game__last-played">
+                  Rp. {parseInt(item.price).toLocaleString()}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

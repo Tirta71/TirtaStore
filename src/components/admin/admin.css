@@ -1,74 +1,53 @@
-.container {
+.admin-container {
   margin: 2rem;
-  padding: 20px;
 }
 
-.table-container {
-  overflow-x: auto;
+h2 {
+  margin-bottom: 1rem;
 }
 
-.table {
+h4 {
+  margin-top: 2rem;
+}
+
+.transaction-table {
   width: 100%;
+  margin-top: 1rem;
   border-collapse: collapse;
 }
 
-.table th,
-.table td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
+.transaction-table th,
+.transaction-table td {
+  padding: 0.5rem;
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.wallet-container {
-  display: flex;
-  align-items: center;
+.transaction-table th {
+  background-color: #f2f2f2;
 }
 
-.wallet-amount {
-  margin-right: 10px;
-  font-weight: bold;
+.transaction-item {
+  background-color: #fff;
 }
 
-.wallet-edit input {
-  width: 60px;
-  margin-right: 10px;
-  padding: 4px;
-}
-
-.wallet-edit button {
-  padding: 4px 10px;
+.status-button {
   background-color: #4caf50;
   color: #fff;
   border: none;
+  padding: 0.5rem;
   cursor: pointer;
 }
 
-.history-edit {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.amount-input {
+  width: 6rem;
+  padding: 0.25rem;
 }
 
-.history-edit input[type="checkbox"] {
-  margin-right: 5px;
-}
-
-.history-edit button {
-  padding: 4px 10px;
+.amount-button {
   background-color: #4caf50;
   color: #fff;
   border: none;
-  cursor: pointer;
-}
-
-.history-details {
-  margin-bottom: 10px;
-}
-
-.edit-button {
-  padding: 4px 10px;
-  background-color: #4caf50;
-  color: #fff;
-  border: none;
+  padding: 0.5rem;
   cursor: pointer;
 }
