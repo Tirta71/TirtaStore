@@ -21,7 +21,7 @@ export default function Activity({ profileData }) {
               <a className="widjet-game__title">{item.title}</a>
               <div className="widjet-game__record">{item.date}</div>
               <strong style={{ color: item.status ? "green" : "red" }}>
-                {item.status ? "SUCCESS" : "PENDING"}
+                {item.status ? "SUCCESS" : "PROCESS TOP UP"}
               </strong>
               <div className="widjet-game__last-played">
                 Rp. {item.price.toLocaleString()}
