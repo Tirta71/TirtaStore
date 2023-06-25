@@ -54,7 +54,6 @@ export default function SideBar() {
   return (
     <aside className="sidebar is-show" id="sidebar">
       <div className="sidebar-box">
-        {!isLogin && <PageLoader />}
         <ul className="uk-nav">
           {dataSideBar.map((link, index) => (
             <li
