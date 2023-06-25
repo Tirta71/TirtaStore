@@ -13,6 +13,7 @@ export default function DetailStore({
   image,
   deskripsi,
   topUpList,
+  slug,
 }) {
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -22,6 +23,7 @@ export default function DetailStore({
   const handleFormSubmit = (data) => {
     console.log("Form submitted:", data);
   };
+
   return (
     <div className="page-store">
       <ToggleTheme />
@@ -66,6 +68,7 @@ export default function DetailStore({
                   genre={genre}
                   rating={rating}
                   image={image}
+                  slug={slug}
                   item={selectedItem ? selectedItem : 0}
                   selectedItem={selectedItem}
                 />

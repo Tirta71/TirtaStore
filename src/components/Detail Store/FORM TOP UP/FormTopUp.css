@@ -19,3 +19,9 @@
 .item-topup img {
   width: 80%;
 }
+
+@media (max-width: 768px) {
+  .container-topUp {
+    justify-content: center;
+  }
+}

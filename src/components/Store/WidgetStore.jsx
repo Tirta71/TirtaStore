@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function WidgetStore({
   searchQuery,
   onSearchChange,
   filteredData,
+  onCategoryChange,
 }) {
   const genres = [...new Set(filteredData.map((item) => item.genre))];
+  const [selectedCategory, setSelectedCategory] = useState("");
 
+  const handleCategoryChange = (event) => {
+    const category = event.target.value;
+    setSelectedCategory(category);
+    onCategoryChange(category); // Mengirim nilai kategori ke komponen lain
+  };
+
+  console.log("category", onCategoryChange);
   return (
     <div className="widjet --filters">
       <div className="widjet__head">
@@ -38,10 +47,29 @@ export default function WidgetStore({
           </div>
 
           <div>
-            <select className="js-select">
+            <select
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              style={{
+                backgroundColor: "#f5f5f5",
+                border: "none",
+                borderRadius: "5px",
+                padding: "0.7rem",
+                color: "#333",
+                fontSize: "14px",
+                paddingRight: "1rem",
+              }}
+            >
               <option value="">Category: All</option>
               {genres.map((genre) => (
-                <option key={genre} value={genre}>
+                <option
+                  key={genre}
+                  value={genre}
+                  style={{
+                    backgroundColor: "#fff",
+                    color: "#333",
+                  }}
+                >
                   {genre}
                 </option>
               ))}

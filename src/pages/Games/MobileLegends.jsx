@@ -14,6 +14,7 @@ export default function MobileLegends() {
       rating={mobileLegend.rating}
       image={mobileLegend.image}
       deskripsi={mobileLegend.deskripsi}
+      slug={mobileLegend.slug}
       topUpList={MlTopUp.item}
     />
   );

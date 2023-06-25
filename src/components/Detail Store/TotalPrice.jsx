@@ -9,6 +9,7 @@ export default function TotalPrice({
   genre,
   rating,
   image,
+  slug,
 }) {
   const idUser = localStorage.getItem("userId");
   const [amount, setAmount] = useState([]);
@@ -30,12 +31,12 @@ export default function TotalPrice({
       genre,
       rating,
       image,
+      slug,
     };
 
     axios
       .post(`${API_URL}/${idUser}/favorites`, newFavorite)
       .then((response) => {
-        console.log("Data updated in favorites:", response.data);
         toast.success("Favorite add");
         setTimeout(() => {
           window.location.href = "/favourites";
@@ -45,8 +46,6 @@ export default function TotalPrice({
         console.error("Failed to update data in favorites:", error);
       });
   };
-
-  console.log("Amount", amount);
 
   const buyNow = () => {
     if (!selectedItem || !selectedItem.price) {

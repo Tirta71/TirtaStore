@@ -37,9 +37,11 @@ export default function WidgetPayment({ historyTransaction }) {
   };
 
   const handleTopupAmountChange = (event) => {
-    setTopupAmount(event.target.value);
+    const input = event.target.value;
+    // Menghapus semua karakter selain angka
+    const filteredInput = input.replace(/[^0-9]/g, "");
+    setTopupAmount(filteredInput);
   };
-
   const handleTopupSubmit = async () => {
     try {
       if (topupAmount <= 10000) {
@@ -111,13 +113,22 @@ export default function WidgetPayment({ historyTransaction }) {
               <p>Transfer: 8213132 BCA</p>
               <p>AN: Tirta Samara</p>
               <p style={{ color: "red", lineHeight: "20px" }}>
-                Note : Pastikan Transfer Sesuai No Rekening dan jumlah topup
+                Note : Pastikan Transfer Sesuai No Rekening
+                <br />
+                dan transfer menggunakan angka unik
+                <br />
+                Contoh : Rp. 10.802
               </p>
               <input
                 type="text"
                 placeholder="Masukkan Jumlah Topup"
+                pattern="[0-9]"
                 className="input-topup"
-                value={topupAmount}
+                value={
+                  topupAmount !== ""
+                    ? "Rp. " + parseInt(topupAmount).toLocaleString()
+                    : "Rp. 0"
+                }
                 onChange={handleTopupAmountChange}
                 style={{ width: "100%" }}
               />

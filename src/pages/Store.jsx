@@ -8,9 +8,14 @@ import { ToggleTheme } from "../components/ToggleThemeButton/ToggleThemeButton";
 
 export default function Store() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   const filteredData = dataGameCard.filter((item) =>
@@ -30,8 +35,12 @@ export default function Store() {
               searchQuery={searchQuery}
               onSearchChange={handleSearchChange}
               filteredData={filteredData}
+              onCategoryChange={handleCategoryChange} // Tambahkan properti onCategoryChange
             />
-            <GameStore filteredData={filteredData} />
+            <GameStore
+              filteredData={filteredData}
+              selectedCategory={selectedCategory}
+            />
           </main>
         </div>
       </div>

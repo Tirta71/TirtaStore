@@ -34,7 +34,9 @@ export default function WidgetWallet({ dataWallet, historyWallet }) {
         <div className="widjet__body">
           <div className="wallet-info">
             {dataWallet.amount ? (
-              <div className="wallet-value">Rp {dataWallet.amount}</div>
+              <div className="wallet-value">
+                Rp. {dataWallet.amount.toLocaleString()}
+              </div>
             ) : (
               <PageLoader />
             )}

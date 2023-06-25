@@ -30,6 +30,7 @@ export default function HeaderHome() {
       })
       .catch((error) => {
         console.error("Failed to update login status:", error);
+        toast.error(error);
       });
   };
 

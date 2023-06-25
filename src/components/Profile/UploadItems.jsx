@@ -11,18 +11,12 @@ export default function UploadItems({ favorite }) {
   };
   return (
     <div className="uk-width-1-3@l">
-      <div className="widjet --upload">
-        <div className="widjet__head">
-          <h3 className="uk-text-lead">Favorite</h3>
-        </div>
+      <div className="widjet__head">
+        <h3 className="uk-text-lead">Favorites Games</h3>
+        <a onClick={handleFavClick}>View All</a>
       </div>
 
       <div className="widjet --games">
-        <div className="widjet__head">
-          <h3 className="uk-text-lead">Games</h3>
-          <a onClick={handleFavClick}>View All</a>
-        </div>
-
         <div className="widjet__body">
           <ul className="games-list">
             {favorite.map((item, index) => (

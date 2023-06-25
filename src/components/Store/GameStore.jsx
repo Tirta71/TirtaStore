@@ -1,13 +1,16 @@
 import React from "react";
 
-export default function GameStore({ filteredData }) {
+export default function GameStore({ filteredData, selectedCategory }) {
+  const filteredGames = selectedCategory
+    ? filteredData.filter((game) => game.genre === selectedCategory)
+    : filteredData;
   return (
     <div
       className="uk-grid uk-child-width-1-6@xl uk-child-width-1-4@l uk-child-width-1-3@s uk-flex-middle uk-grid-small"
       data-uk-grid
     >
-      {filteredData.length > 0 ? (
-        filteredData.map((game) => (
+      {filteredGames.length > 0 ? (
+        filteredGames.map((game) => (
           <div key={game.id}>
             <div className="game-card">
               <div className="game-card__box">

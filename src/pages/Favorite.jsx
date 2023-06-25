@@ -13,7 +13,11 @@ export default function Favorite() {
   const [dataFavorite, setDataFavorite] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const idUser = localStorage.getItem("userId");
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
   useEffect(() => {
     setIsLoading(true);
 
@@ -65,7 +69,7 @@ export default function Favorite() {
                       className="uk-grid uk-child-width-1-4@xl uk-child-width-1-2@s uk-flex-middle uk-grid-small"
                       data-uk-grid
                     >
-                      <SearchFavourite />
+                      <SearchFavourite onSearch={handleSearch} />
                       <div className="uk-text-right">
                         <a href="#!">{dataFavorite.length} items</a>
                       </div>
@@ -76,7 +80,11 @@ export default function Favorite() {
                   <div>Loading...</div>
                 ) : (
                   <GameCard
-                    dataFavorite={dataFavorite}
+                    dataFavorite={dataFavorite.filter((item) =>
+                      item.title
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )}
                     handleDelete={handleDeleteItem}
                   />
                 )}
