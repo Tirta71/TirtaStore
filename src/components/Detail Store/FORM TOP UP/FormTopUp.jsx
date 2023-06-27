@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import "./FormTopUp.css";
 import GetIdForm from "../Cek Id/CekIdMobileLegend";
+import CekIdValorant from "../Cek Id/CekIdValorant";
+import CekIdGenshin from "../Cek Id/CekIdGenshin";
+import CekIdPubgMobile from "../Cek Id/CekIdPubgMobile";
 
 export default function FormTopUp({
   topUpList,
   selectedItem,
   handleItemSelect,
-  setUsername,
-  handleFormSubmit,
   title,
 }) {
   useEffect(() => {
@@ -22,28 +24,34 @@ export default function FormTopUp({
     e.preventDefault();
   };
 
-  console.log("test", topUpList[1]);
-
   return (
     <div className="widget__body">
-      {title === "Mobile Legend" && (
-        <GetIdForm setUsername={setUsername} onSubmit={handleFormSubmit} />
-      )}
-
+      {title === "Mobile Legend" && <GetIdForm />}
+      {title === "Valorant" && <CekIdValorant />}
+      {title === "Genshin Impact" && <CekIdGenshin />}
+      {title === "Pubg Mobile" && <CekIdPubgMobile />}
       <form onSubmit={handleSubmit}>
         <div className="widjet__body" style={{ marginTop: "2rem" }}>
           <div className="container-topUp">
             {topUpList &&
               topUpList.map((item) => (
                 <div key={item.jumlah}>
-                  <label>
+                  <label className="radio-label">
                     <input
                       type="radio"
                       value={item.jumlah}
                       checked={selectedItem === item}
                       onChange={() => handleItemSelect(item)}
                     />
-                    <div className="item-topup">
+                    <motion.div
+                      className="item-topup"
+                      whileTap={{ scale: 1 }}
+                      initial={{ scale: 0.9 }}
+                      animate={
+                        selectedItem === item ? { scale: 1 } : { scale: 0.9 }
+                      }
+                      transition={{ duration: 0.3 }}
+                    >
                       <img src={item.image} alt={`Diamond ${item.jumlah}`} />
                       {title === "Mobile Legend" && (
                         <span> {item.jumlah} Diamond</span>
@@ -55,9 +63,8 @@ export default function FormTopUp({
                       {title === "Genshin Impact" && (
                         <span>{item.jumlah} Genesis </span>
                       )}
-
                       <span>Rp.{item.price.toLocaleString()}</span>
-                    </div>
+                    </motion.div>
                   </label>
                 </div>
               ))}

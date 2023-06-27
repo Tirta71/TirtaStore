@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./css/IdmobileLegends.css";
-export default function GetIdForm({ setUsername }) {
+import { UserContext } from "../../../userContext";
+
+export default function GetIdForm() {
   const [userId, setUserId] = useState("");
   const [serverId, setServerId] = useState("");
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [showUsername, setShowUsername] = useState(false);
+  const { updateUser } = useContext(UserContext);
 
   const fetchUsername = async () => {
     try {
@@ -14,13 +17,28 @@ export default function GetIdForm({ setUsername }) {
       );
 
       const data = await response.json();
-      setResponse(data);
-      setError(null);
-      console.log(data);
-      setShowUsername(true);
+
+      if (data?.data?.username) {
+        const username = data.data.username;
+        setResponse(data);
+        setError(null);
+        setShowUsername(true);
+
+        const userData = {
+          username,
+          userId,
+          serverId,
+        };
+        updateUser(userData);
+      } else {
+        setResponse(null);
+        setError("Username tidak ditemukan.");
+        setShowUsername(false);
+      }
     } catch (error) {
       setResponse(null);
       setError("Terjadi kesalahan saat mengambil data.");
+      setShowUsername(false);
     }
   };
 
@@ -28,6 +46,12 @@ export default function GetIdForm({ setUsername }) {
     e.preventDefault();
     if (userId && serverId) {
       fetchUsername();
+      const userData = {
+        username: response?.data?.username,
+        userId,
+        serverId,
+      };
+      updateUser(userData);
     }
   };
 

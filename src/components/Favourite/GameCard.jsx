@@ -1,14 +1,43 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export default function GameCard({ dataFavorite, handleDelete }) {
   const handleDeleteClick = (index) => {
     handleDelete(index);
   };
 
+  const containerVariants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
   return (
-    <div>
+    <motion.div variants={containerVariants} initial="hidden" animate="visible">
       {dataFavorite.map((game, index) => (
-        <div className="game-card --horizontal favourites-game" key={index}>
+        <motion.div
+          key={index}
+          className="game-card --horizontal favourites-game"
+          variants={itemVariants}
+        >
           <div className="game-card__box">
             <div className="game-card__media">
               <img src={game.image} alt={game.title} />
@@ -41,8 +70,8 @@ export default function GameCard({ dataFavorite, handleDelete }) {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

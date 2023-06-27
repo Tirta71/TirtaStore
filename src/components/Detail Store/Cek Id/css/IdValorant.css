@@ -1,0 +1,19 @@
+.container-idVal input {
+  border: none;
+  background-color: #f46119;
+  padding: 0.5rem 2rem;
+  color: white;
+  border-radius: 5px;
+}
+
+.container-idVal input::placeholder {
+  color: white;
+}
+
+.container-idVal input:focus {
+  outline-style: solid;
+}
+
+.container-valorant p {
+  line-height: 1.5rem;
+}

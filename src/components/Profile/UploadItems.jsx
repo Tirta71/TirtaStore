@@ -10,23 +10,27 @@ export default function UploadItems({ favorite }) {
     window.location.href = "/favourites";
   };
   return (
-    <div className="uk-width-1-3@l">
-      <div className="widjet__head">
-        <h3 className="uk-text-lead">Favorites Games</h3>
-        <a onClick={handleFavClick}>View All</a>
-      </div>
+    <>
+      {favorite.length > 0 && (
+        <div className="uk-width-1-3@l">
+          <div className="widjet__head">
+            <h3 className="uk-text-lead">Favorites Games</h3>
+            <a onClick={handleFavClick}>View All</a>
+          </div>
 
-      <div className="widjet --games">
-        <div className="widjet__body">
-          <ul className="games-list">
-            {favorite.map((item, index) => (
-              <li key={index}>
-                <img src={item.image} alt="game" />
-              </li>
-            ))}
-          </ul>
+          <div className="widjet --games">
+            <div className="widjet__body">
+              <ul className="games-list">
+                {favorite.map((item, index) => (
+                  <li key={index}>
+                    <img src={item.image} alt="game" />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

@@ -14,10 +14,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 .item-topup img {
   width: 80%;
+}
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.container-topUp label input[type="radio"]:checked + .item-topup {
+  cursor: pointer;
+  background-color: #f46119;
+  border: 2px solid #f46119;
+  color: #ffffff;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {

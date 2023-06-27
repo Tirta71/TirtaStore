@@ -1,0 +1,54 @@
+.container-genshin {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.container-uid input {
+  background-color: #f46119;
+  border: none;
+  padding: 0.5rem 2rem;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+}
+
+.container-uid input::placeholder {
+  color: white;
+}
+
+.container-server select {
+  background-color: #f46119;
+  padding: 0.52rem 4rem;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.container-server option {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .container-genshin p {
+    font-size: 15px;
+    line-height: 1.5rem;
+  }
+  .container-server {
+    width: 100%;
+  }
+  .container-server select {
+    padding: 0.575rem 5.1rem;
+    width: 100%;
+    text-align: center;
+  }
+  .container-uid {
+    width: 100%;
+  }
+  .container-uid input {
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+  }
+}

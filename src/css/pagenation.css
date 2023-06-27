@@ -1,0 +1,37 @@
+.pagination__button {
+  margin-top: 2rem;
+  background-color: #fff;
+  color: #f46119;
+  border: none;
+  padding: 8px 12px;
+  margin-right: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pagination__button.active {
+  background-color: #f46119;
+  color: #fff;
+}
+
+.filter-status label {
+  font-weight: bold;
+}
+
+.filter-status select {
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filter-status select:focus {
+  outline: none;
+  border-color: #f46119;
+}
+
+.filter-status select option {
+  font-size: 14px;
+  background-color: #f46119;
+  color: white;
+}

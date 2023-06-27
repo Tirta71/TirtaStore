@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { API_URL } from "../../api";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import { UserContext } from "../../userContext";
 export default function TotalPrice({
   selectedItem,
   title,
@@ -13,6 +14,10 @@ export default function TotalPrice({
 }) {
   const idUser = localStorage.getItem("userId");
   const [amount, setAmount] = useState([]);
+  const { userData } = useContext(UserContext);
+
+  // Gunakan data userData di sini
+  console.log("userData:", userData);
 
   useEffect(() => {
     axios
@@ -48,6 +53,10 @@ export default function TotalPrice({
   };
 
   const buyNow = () => {
+    if (userData === null) {
+      toast.error("Form User Id blm di isi");
+      return;
+    }
     if (!selectedItem || !selectedItem.price) {
       toast.error("Ups Item nya blm dipilih");
       return;
@@ -80,6 +89,7 @@ export default function TotalPrice({
       image,
       status: false,
       date: new Date().toLocaleString(),
+      userData,
     };
 
     Swal.fire({
