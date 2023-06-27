@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../api";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import SearchHeader from "./HeaderHome/SearchHeader";
 
 export default function HeaderHome() {
   const [dataGambar, setDataGambar] = useState([]);
@@ -47,19 +48,7 @@ export default function HeaderHome() {
           </div>
         </div>
         <div className="page-header__content">
-          <div className="page-header__search">
-            <div className="search">
-              <div className="search__input">
-                <i className="ico_search"></i>
-                <input type="search" name="search" placeholder="Search" />
-              </div>
-              <div className="search__btn">
-                <button type="button">
-                  <i className="ico_microphone"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+          <SearchHeader />
           <div className="page-header__action">
             <a className="profile" href="/profile">
               <img src={dataGambar} alt="profile" />

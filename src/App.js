@@ -19,6 +19,8 @@ import Login from "./pages/USER/Login/Login";
 import Register from "./pages/USER/Register/Register";
 import "react-toastify/dist/ReactToastify.css";
 import UserForm from "./components/admin/Admin";
+import HiggsDomino from "./pages/Games/HiggsDomino";
+import PointBlank from "./pages/Games/PointBlank";
 
 function App() {
   const userId = localStorage.getItem("userId");
@@ -68,6 +70,14 @@ function App() {
         <Route
           path="/pubg-mobile"
           element={<PubgMobile isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/higgs-domino"
+          element={<HiggsDomino isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/point-blank"
+          element={<PointBlank isLoggedIn={isLoggedIn} />}
         />
         <Route path="/admin" element={<UserForm isLoggedIn={isLoggedIn} />} />
       </Routes>

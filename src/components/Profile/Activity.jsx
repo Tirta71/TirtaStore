@@ -15,6 +15,7 @@ export default function Activity({ profileData }) {
     setStatusFilter(e.target.value);
     setCurrentPage(1);
   };
+  console.log("ProfileData", profileData);
 
   const filterDataByStatus = (data, status) => {
     if (status === "pending") {
@@ -83,8 +84,9 @@ export default function Activity({ profileData }) {
                     <img src={item.image} alt={item.title} />
                   </a>
                 </div>
+
                 <div className="widjet-game__info">
-                  <a className="widjet-game__title">{item.title}</a>
+                  <a className="widjet-game__title">{item.title}</a>\
                   <div className="widjet-game__record">{item.date}</div>
                   <strong style={{ color: item.status ? "green" : "red" }}>
                     {item.status ? "SUCCESS" : "PROCESS TOP UP"}

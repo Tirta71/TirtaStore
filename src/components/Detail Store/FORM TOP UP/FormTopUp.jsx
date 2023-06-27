@@ -5,6 +5,8 @@ import GetIdForm from "../Cek Id/CekIdMobileLegend";
 import CekIdValorant from "../Cek Id/CekIdValorant";
 import CekIdGenshin from "../Cek Id/CekIdGenshin";
 import CekIdPubgMobile from "../Cek Id/CekIdPubgMobile";
+import CekIdHiggs from "../Cek Id/CekIdHiggs";
+import CekIdPointBlank from "../Cek Id/CekIdPointBlank";
 
 export default function FormTopUp({
   topUpList,
@@ -30,12 +32,14 @@ export default function FormTopUp({
       {title === "Valorant" && <CekIdValorant />}
       {title === "Genshin Impact" && <CekIdGenshin />}
       {title === "Pubg Mobile" && <CekIdPubgMobile />}
+      {title === "Higgs Domino" && <CekIdHiggs />}
+      {title === "Point Blank" && <CekIdPointBlank />}
       <form onSubmit={handleSubmit}>
         <div className="widjet__body" style={{ marginTop: "2rem" }}>
           <div className="container-topUp">
             {topUpList &&
               topUpList.map((item) => (
-                <div key={item.jumlah}>
+                <div key={item.id}>
                   <label className="radio-label">
                     <input
                       type="radio"
@@ -62,6 +66,12 @@ export default function FormTopUp({
                       )}
                       {title === "Genshin Impact" && (
                         <span>{item.jumlah} Genesis </span>
+                      )}
+                      {title === "Higgs Domino" && (
+                        <span>{item.jumlah}M Koin Emas-D</span>
+                      )}
+                      {title === "Point Blank" && (
+                        <span>{item.jumlah} CASH</span>
                       )}
                       <span>Rp.{item.price.toLocaleString()}</span>
                     </motion.div>

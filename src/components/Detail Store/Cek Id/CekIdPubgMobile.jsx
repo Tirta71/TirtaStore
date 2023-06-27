@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../../userContext";
+import { HelpButton } from "../../Button Help/ButtonHelp";
 
 export default function CekIdPubgMobile() {
   const [idGame, setIdGame] = useState("");
   const { updateUser } = useContext(UserContext);
-
+  const [showImage, setShowImage] = useState(false);
   const handlePlayerNameChange = (e) => {
     setIdGame(e.target.value);
   };
@@ -13,6 +14,10 @@ export default function CekIdPubgMobile() {
     if (idGame) {
       updateUser({ idGame });
     }
+  };
+
+  const handleClick = () => {
+    setShowImage(!showImage);
   };
   return (
     <div className="container-valorant">
@@ -26,6 +31,7 @@ export default function CekIdPubgMobile() {
           placeholder="Masukan User Id Pubg "
           required
         />
+        <HelpButton onClick={handleClick} active={showImage} />
       </div>
       <p>
         Cara Top Up PUBG Mobile
@@ -35,6 +41,12 @@ export default function CekIdPubgMobile() {
         </ul>
         <p>Tunggu Beberapa Saat UC Akan Otomatis Masuk Ke Akun Anda.</p>
       </p>
+      {showImage && (
+        <img
+          src="https://latomstore.id/assets/img/idserver/1638299666.png"
+          alt="pubg"
+        />
+      )}
     </div>
   );
 }

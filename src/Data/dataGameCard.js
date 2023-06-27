@@ -17,6 +17,8 @@ export const dataGameCard = [
     image:
       "https://www.valorantpcdownload.com/wp-content/uploads/2022/09/Valorant-background-Wallpaper-scaled.jpg",
     slug: "valorant",
+    deskripsi:
+      "Valorant adalah sebuah permainan tembak-menembak taktis online yang dikembangkan oleh Riot Games. ",
   },
   {
     id: 3,
@@ -26,6 +28,8 @@ export const dataGameCard = [
     image:
       "https://cdn.medcom.id/images/content/2023/03/07/1544914/Sq0MgJlhKw.jpeg",
     slug: "genshin-impact",
+    deskripsi:
+      "Genshin Impact adalah sebuah permainan peran (RPG) aksi dan petualangan yang dikembangkan oleh miHoYo. Permainan ini menempatkan pemain dalam dunia terbuka yang indah dan menakjubkan yang disebut Teyvat. ",
   },
   {
     id: 4,
@@ -35,5 +39,27 @@ export const dataGameCard = [
     image:
       "https://gamebrott.com/wp-content/uploads/2021/03/youtubegaming2560_1440.jpg",
     slug: "pubg-mobile",
+    deskripsi:
+      "PUBG Mobile adalah sebuah permainan battle royale yang sangat populer yang dikembangkan oleh PUBG Corporation.",
+  },
+  {
+    id: 5,
+    title: "Higgs Domino",
+    genre: "Casual",
+    rating: 4.7,
+    image: "https://wallpapercave.com/wp/wp9938472.jpg",
+    slug: "higgs-domino",
+    deskripsi:
+      "Higgs Domino adalah sebuah permainan kartu online yang populer di Indonesia.",
+  },
+  {
+    id: 6,
+    title: "Point Blank",
+    genre: "FPS",
+    rating: 4.2,
+    image: "https://i.ytimg.com/vi/5tskWjrAWM0/maxresdefault.jpg",
+    slug: "point-blank",
+    deskripsi:
+      "Point blank adalah game lawas yang masih bertahan sampai saat ini padahal banyak cheat",
   },
 ];

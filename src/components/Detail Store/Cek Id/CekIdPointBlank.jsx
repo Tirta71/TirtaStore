@@ -1,51 +1,51 @@
 import React, { useContext, useState } from "react";
 import "./css/IdValorant.css";
 import { UserContext } from "../../../userContext";
+import "./css/IdValorant.css";
 import { HelpButton } from "../../Button Help/ButtonHelp";
 
-export default function CekIdValorant() {
-  const [playerName, setPlayerName] = useState("");
-  const { updateUser } = useContext(UserContext);
+export default function CekIdPointBlank() {
+  const [idPointBlank, setIdPointBlank] = useState("");
   const [showImage, setShowImage] = useState(false);
+  const { updateUser } = useContext(UserContext);
 
-  const valoImage =
-    "https://cdn1.codashop.com/S/content/common/images/helpers/139.png";
+  const ImagePointBlank =
+    "https://cdn1.codashop.com/S/content/common/images/helpers/113.png";
 
   const handlePlayerNameChange = (e) => {
-    setPlayerName(e.target.value);
+    setIdPointBlank(e.target.value);
   };
 
   const handleBlur = () => {
-    if (playerName) {
-      updateUser({ playerName });
+    if (idPointBlank) {
+      updateUser({ idPb: idPointBlank });
     }
   };
 
   const handleClick = () => {
     setShowImage(!showImage);
   };
+
   return (
     <div className="container-valorant">
       <div className="container-idVal">
         <input
           type="text"
-          id="playerName"
-          value={playerName}
+          id="idPointBlank"
+          value={idPointBlank}
           onChange={handlePlayerNameChange}
           onBlur={handleBlur}
-          placeholder="Masukan Riot ID anda"
+          placeholder="Masukkan ID Point Blank"
           required
         />
         <HelpButton onClick={handleClick} active={showImage} />
       </div>
-
       <p>
-        Untuk menemukan Riot ID Anda, buka halaman profil akun dan salin Riot
-        ID+Tag menggunakan tombol yang tersedia disamping Riot ID.
-        <br />
-        Contoh: TIRTA#FIRE
+        Untuk menemukan Zepetto ID Anda, silakan kunjungi Halaman Beranda kami
+        dan log-in, Kemudian Anda dapat lihat Zepetto ID Anda tercantum di pojok
+        atas kanan layar.
       </p>
-      {showImage && <img src={valoImage} alt="valo" />}
+      {showImage && <img src={ImagePointBlank} alt="Point Blank" />}
     </div>
   );
 }

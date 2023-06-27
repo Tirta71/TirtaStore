@@ -190,7 +190,7 @@ export const TopUpList = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     item: [
       {
         image:
@@ -227,6 +227,100 @@ export const TopUpList = [
           "https://cdn1.codashop.com/S/content/common/images/denom-image/PUBG/60_PUBG_UC.png",
         jumlah: 8100,
         price: 1400000,
+      },
+    ],
+  },
+  {
+    id: 5,
+    item: [
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 30,
+        price: 5000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 60,
+        price: 10000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 100,
+        price: 15000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 200,
+        price: 30000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 400,
+        price: 60000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 400,
+        price: 250000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/Higgs-Domino/resized/30M_HiggsDomino_Coins.png",
+        jumlah: 400,
+        price: 500000,
+      },
+    ],
+  },
+  {
+    id: 6,
+    item: [
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 1200,
+        price: 11000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 2400,
+        price: 22000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 6000,
+        price: 55000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 12000,
+        price: 110000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 24000,
+        price: 220000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 36000,
+        price: 330000,
+      },
+      {
+        image:
+          "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
+        jumlah: 60000,
+        price: 550000,
       },
     ],
   },

@@ -1,11 +1,15 @@
 import React, { useContext, useState } from "react";
 import "./css/IdGenshin.css";
 import { UserContext } from "../../../userContext";
+import { HelpButton } from "../../Button Help/ButtonHelp";
 
 export default function CekIdGenshin() {
   const [playerName, setPlayerName] = useState("");
   const [server, setServer] = useState("");
   const { updateUser } = useContext(UserContext);
+  const [showImage, setShowImage] = useState(false);
+  const imageGenshin =
+    "https://cdn1.codashop.com/S/content/common/images/helpers/183.png";
 
   const handlePlayerNameChange = (e) => {
     const name = e.target.value;
@@ -19,6 +23,9 @@ export default function CekIdGenshin() {
     updateUser({ playerName, server: selectedServer });
   };
 
+  const handleClick = () => {
+    setShowImage(!showImage);
+  };
   return (
     <div className="container-genshin">
       <div className="container-uid">
@@ -44,12 +51,16 @@ export default function CekIdGenshin() {
           <option value="America">America</option>
         </select>
       </div>
+      <div>
+        <HelpButton onClick={handleClick} active={showImage} />
+      </div>
       <p>
         Untuk menemukan UID Anda, masuk pakai akun Anda. Klik pada tombol
         profile di pojok kiri atas layar. Temukan UID dibawah avatar. Masukan
         UID Anda di sini. Selain itu, Anda juga dapat temukan UID Anda di pojok
         bawah kanan layar.
       </p>
+      {showImage && <img src={imageGenshin} alt="genshin" />}
     </div>
   );
 }
