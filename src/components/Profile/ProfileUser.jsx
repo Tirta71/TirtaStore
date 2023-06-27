@@ -8,6 +8,7 @@ export default function ProfileUser({ profileData }) {
   const [username, setUsername] = useState(profileData.username);
   const [password, setPassword] = useState(profileData.password);
   const [Bio, setBio] = useState(profileData.Bio);
+  const [image, setImage] = useState(profileData.image);
   const idUser = localStorage.getItem("userId");
   const handleEditClick = () => {
     setEditing(true);
@@ -19,6 +20,7 @@ export default function ProfileUser({ profileData }) {
         username,
         password,
         Bio,
+        image,
       })
       .then((response) => {
         Swal.fire("Profile Updated", "Success Updated Profile", "success").then(
@@ -41,6 +43,7 @@ export default function ProfileUser({ profileData }) {
     setUsername(profileData.username);
     setBio(profileData.Bio);
     setPassword(profileData.password);
+    setImage(profileData.image);
     setEditing(false);
   };
 
@@ -53,7 +56,10 @@ export default function ProfileUser({ profileData }) {
   const handleBioChange = (event) => {
     setBio(event.target.value);
   };
-
+  const handleImageChange = (event) => {
+    setImage(event.target.value);
+  };
+  console.log("Image", image);
   return (
     <div className="widjet --profile">
       <div className="widjet__head">
@@ -62,6 +68,15 @@ export default function ProfileUser({ profileData }) {
       <div className="widjet__body">
         {editing ? (
           <div className="edit-profile-form">
+            <div className="edit-profile-form__group">
+              <label htmlFor="username">Image :</label>
+              <input
+                type="text"
+                id="image"
+                value={image}
+                onChange={handleImageChange}
+              />
+            </div>
             <div className="edit-profile-form__group">
               <label htmlFor="username">Username:</label>
               <input
