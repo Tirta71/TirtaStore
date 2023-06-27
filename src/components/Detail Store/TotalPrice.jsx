@@ -53,6 +53,24 @@ export default function TotalPrice({
   };
 
   const buyNow = () => {
+    if (
+      title === "Mobile Legend" &&
+      (!userData || userData.username === undefined)
+    ) {
+      toast.error("Mohon Masukkan ID dengan benar");
+      return;
+    }
+
+    if (
+      title === "Valorant" &&
+      (!userData ||
+        userData === undefined ||
+        !userData.playerName.includes("#"))
+    ) {
+      toast.error("Mohon Masukkan ID sesuai dengan contoh");
+      return;
+    }
+
     if (userData === null) {
       toast.error("Form User Id blm di isi");
       return;
@@ -93,7 +111,7 @@ export default function TotalPrice({
     };
 
     Swal.fire({
-      title: "Do you want to buy this item?",
+      title: "Pastikan Data Sudah Benar!!!",
       showCancelButton: true,
       confirmButtonText: "Confirm",
       cancelButtonText: "Cancel",

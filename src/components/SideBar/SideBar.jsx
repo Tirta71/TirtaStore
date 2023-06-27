@@ -49,6 +49,11 @@ export default function SideBar() {
     },
     { to: "/wallet", label: "Wallet", icon: "ico_wallet" },
     { to: "/store", label: "Store", icon: "ico_store" },
+    {
+      to: "https://api.whatsapp.com/send?phone=6281284964533&text=Halo Saya Mau Minta Bantuan",
+      label: "WhatsApp",
+      icon: "ico_help",
+    },
   ];
 
   return (
@@ -60,7 +65,14 @@ export default function SideBar() {
               key={index}
               className={isActiveLink(link.to) ? "uk-active" : ""}
             >
-              <a href={link.to} onClick={handleNavLinkClick}>
+              <a
+                href={link.to}
+                {...(link.label === "WhatsApp" && {
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                })}
+                onClick={handleNavLinkClick}
+              >
                 <i className={link.icon}></i>
                 <span>{link.label}</span>
                 {link.count && <span className="count">{link.count}</span>}
