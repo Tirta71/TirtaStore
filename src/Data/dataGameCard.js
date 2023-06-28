@@ -62,4 +62,24 @@ export const dataGameCard = [
     deskripsi:
       "Point blank adalah game lawas yang masih bertahan sampai saat ini padahal banyak cheat",
   },
+  {
+    id: 7,
+    title: "Call Of Duty",
+    genre: "FPS",
+    rating: 4.6,
+    image:
+      "https://gamepress.com.br/wp-content/uploads/2019/09/Call-of-Duty-Mobile-1.jpg",
+    slug: "cod-m",
+    deskripsi:
+      "Call of Duty adalah game fps mobile modern yang bertemekan battle ground dan pvp.",
+  },
+  {
+    id: 8,
+    title: "Arena Of Valor",
+    genre: "Moba",
+    rating: 4.5,
+    image: "https://i.imgur.com/swipKl6.jpg",
+    slug: "aov",
+    deskripsi: "Aov adalah game moba setelah mobile legend",
+  },
 ];

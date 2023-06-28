@@ -129,7 +129,7 @@ export default function TotalPrice({
 
                 Swal.fire({
                   title: "Transaction Success",
-                  text: "",
+                  text: "Admin sedang memproses pesanan anda",
                   icon: "success",
                   confirmButtonText: "OK",
                 }).then(() => {

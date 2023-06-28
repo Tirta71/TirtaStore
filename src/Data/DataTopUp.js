@@ -1,6 +1,7 @@
 export const TopUpList = [
   {
     id: 1,
+    game: "mobile legend",
     item: [
       {
         image:
@@ -103,6 +104,7 @@ export const TopUpList = [
 
   {
     id: 2,
+    game: "valorant",
     item: [
       {
         image:
@@ -148,8 +150,10 @@ export const TopUpList = [
       },
     ],
   },
+
   {
     id: 3,
+    game: "genshin impact",
     item: [
       {
         image:
@@ -189,8 +193,10 @@ export const TopUpList = [
       },
     ],
   },
+
   {
     id: 4,
+    game: "pubg mobile",
     item: [
       {
         image:
@@ -230,8 +236,10 @@ export const TopUpList = [
       },
     ],
   },
+
   {
     id: 5,
+    game: "higgs Domino",
     item: [
       {
         image:
@@ -277,8 +285,10 @@ export const TopUpList = [
       },
     ],
   },
+
   {
     id: 6,
+    game: "Point Blank",
     item: [
       {
         image:
@@ -321,6 +331,122 @@ export const TopUpList = [
           "https://latomstore.id/assets/img/kategori/168085705420_topup.png",
         jumlah: 60000,
         price: 550000,
+      },
+    ],
+  },
+
+  {
+    id: 7,
+    game: "cod mobile",
+    item: [
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 31,
+        price: 5000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 62,
+        price: 10000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 127,
+        price: 20000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 320,
+        price: 50000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 645,
+        price: 100000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 800,
+        price: 120000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 1373,
+        price: 200000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 2059,
+        price: 300000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 2749,
+        price: 380000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/CODM/100x100/CallofDuty_CP.png",
+        jumlah: 3564,
+        price: 500000,
+      },
+    ],
+  },
+
+  {
+    id: 8,
+    game: "aov",
+    item: [
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 40,
+        price: 10000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 90,
+        price: 20000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 230,
+        price: 50000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 470,
+        price: 100000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 950,
+        price: 200000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 1430,
+        price: 300000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/AOV/AOV_Vouchers.png",
+        jumlah: 2390,
+        price: 500000,
       },
     ],
   },

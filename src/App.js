@@ -21,6 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import UserForm from "./components/admin/Admin";
 import HiggsDomino from "./pages/Games/HiggsDomino";
 import PointBlank from "./pages/Games/PointBlank";
+import CodMobile from "./pages/Games/CodMobile";
+import ArenaOfValor from "./pages/Games/ArenaOfValor";
 
 function App() {
   const userId = localStorage.getItem("userId");
@@ -79,6 +81,8 @@ function App() {
           path="/point-blank"
           element={<PointBlank isLoggedIn={isLoggedIn} />}
         />
+        <Route path="/cod-m" element={<CodMobile isLoggedIn={isLoggedIn} />} />
+        <Route path="/aov" element={<ArenaOfValor isLoggedIn={isLoggedIn} />} />
         <Route path="/admin" element={<UserForm isLoggedIn={isLoggedIn} />} />
       </Routes>
     </Router>

@@ -7,6 +7,8 @@ import CekIdGenshin from "../Cek Id/CekIdGenshin";
 import CekIdPubgMobile from "../Cek Id/CekIdPubgMobile";
 import CekIdHiggs from "../Cek Id/CekIdHiggs";
 import CekIdPointBlank from "../Cek Id/CekIdPointBlank";
+import CekIdCodM from "../Cek Id/CekIdCodM";
+import CekIdAov from "../Cek Id/CekIdAov";
 
 export default function FormTopUp({
   topUpList,
@@ -34,6 +36,8 @@ export default function FormTopUp({
       {title === "Pubg Mobile" && <CekIdPubgMobile />}
       {title === "Higgs Domino" && <CekIdHiggs />}
       {title === "Point Blank" && <CekIdPointBlank />}
+      {title === "Call Of Duty" && <CekIdCodM />}
+      {title === "Arena Of Valor" && <CekIdAov />}
       <form onSubmit={handleSubmit}>
         <div className="widjet__body" style={{ marginTop: "2rem" }}>
           <div className="container-topUp">
@@ -72,6 +76,9 @@ export default function FormTopUp({
                       )}
                       {title === "Point Blank" && (
                         <span>{item.jumlah} CASH</span>
+                      )}
+                      {title === "Call Of Duty" && (
+                        <span>{item.jumlah} CP</span>
                       )}
                       <span>Rp.{item.price.toLocaleString()}</span>
                     </motion.div>
