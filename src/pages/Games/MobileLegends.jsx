@@ -7,15 +7,5 @@ export default function MobileLegends() {
   const mobileLegend = dataGameCard[0];
   const MlTopUp = TopUpList[0];
 
-  return (
-    <DetailStore
-      title={mobileLegend.title}
-      genre={mobileLegend.genre}
-      rating={mobileLegend.rating}
-      image={mobileLegend.image}
-      deskripsi={mobileLegend.deskripsi}
-      slug={mobileLegend.slug}
-      topUpList={MlTopUp.item}
-    />
-  );
+  return <DetailStore game={mobileLegend} topUpList={MlTopUp.item} />;
 }

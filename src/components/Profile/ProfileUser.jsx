@@ -33,8 +33,7 @@ export default function ProfileUser({ profileData }) {
         setEditing(false);
       })
       .catch((error) => {
-        // Handle error
-        console.error("Failed to update profile:", error);
+        Swal.fire("Failed to update", "ERROR", "error"(error));
       });
   };
 
@@ -59,7 +58,7 @@ export default function ProfileUser({ profileData }) {
   const handleImageChange = (event) => {
     setImage(event.target.value);
   };
-  console.log("Image", image);
+
   return (
     <div className="widjet --profile">
       <div className="widjet__head">

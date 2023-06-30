@@ -1,29 +1,28 @@
 .container-search-header {
   position: absolute;
   top: 100%;
-  right: 180px;
+  left: 250px;
   background-color: white;
-  padding: 2rem;
+  padding: 2rem 2rem;
   border-radius: 0 0 20px 20px;
+  width: 50%;
 }
-
+.container-search-header::before {
+  content: "Game List";
+  font-weight: bold;
+}
 .no-results {
   font-size: 50px;
   color: #f46119;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (max-width: 758px) {
+@media (max-width: 958px) {
   .container-search-header {
     width: 100%;
-    top: 100%;
     left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
+  }
+  .no-results {
+    font-size: 25px;
   }
 }

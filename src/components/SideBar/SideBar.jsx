@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import PageLoader from "../Loading/PageLoader";
+
 import { API_URL } from "../../api";
+import ButtonLogout from "../Button Logout/ButtonLogout";
+
+import { useMediaQuery } from "react-responsive";
 
 export default function SideBar() {
   const location = useLocation();
-  const [isLogin, setIsLogin] = useState(false);
+
   const [favoritesCount, setFavoritesCount] = useState(0);
+  const isMobile = useMediaQuery({ maxWidth: 500 });
   const userId = localStorage.getItem("userId");
   const isActiveLink = (match) => {
     return match === "/"
@@ -25,9 +29,6 @@ export default function SideBar() {
     axios
       .get(`${API_URL}/${userId}/favorites`)
       .then((response) => {
-        const isLoggedIn = response.data.isLogin;
-        setIsLogin(isLoggedIn);
-
         if (response.data) {
           const count = response.data.length;
           setFavoritesCount(count);
@@ -79,6 +80,8 @@ export default function SideBar() {
               </a>
             </li>
           ))}
+
+          <li>{isMobile && <ButtonLogout />}</li>
         </ul>
       </div>
     </aside>

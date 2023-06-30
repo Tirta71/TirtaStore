@@ -1,12 +1,14 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import "../../css/pagenation.css";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 export default function Activity({ profileData }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("all");
   const itemsPerPage = 3;
   const totalPages = Math.ceil(profileData.length / itemsPerPage);
-
+  const isMobile = useMediaQuery({ maxWidth: 640 });
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -15,7 +17,6 @@ export default function Activity({ profileData }) {
     setStatusFilter(e.target.value);
     setCurrentPage(1);
   };
-  console.log("ProfileData", profileData);
 
   const filterDataByStatus = (data, status) => {
     if (status === "pending") {
@@ -71,28 +72,55 @@ export default function Activity({ profileData }) {
           {currentItems.map((item) => (
             <motion.div
               className="widjet__body"
-              style={{ marginTop: "10px" }}
+              style={{ marginTop: "15px" }}
               key={item.id}
               variants={pageVariants}
               initial="initial"
               animate="animate"
               exit="exit"
             >
-              <div className="widjet-game">
+              <div
+                className="widjet-game"
+                style={{
+                  flexDirection: isMobile ? "row" : "",
+                  gap: isMobile ? "1rem" : "",
+                }}
+              >
                 <div className="widjet-game__media">
                   <a>
-                    <img src={item.image} alt={item.title} />
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      style={{ height: isMobile ? "50px" : "" }}
+                    />
                   </a>
                 </div>
 
-                <div className="widjet-game__info">
-                  <a className="widjet-game__title">{item.title}</a>\
-                  <div className="widjet-game__record">{item.date}</div>
+                <div
+                  className="widjet-game__info"
+                  style={{ fontSize: isMobile ? "8px" : "" }}
+                >
+                  <a
+                    className="widjet-game__title"
+                    style={{ fontSize: isMobile ? "10px" : "" }}
+                  >
+                    {item.title}
+                  </a>
+                  <div
+                    className="widjet-game__record"
+                    style={{ fontSize: isMobile ? "10px" : "" }}
+                  >
+                    {isMobile ? (
+                      <span>Rp. {item.price.toLocaleString()}</span>
+                    ) : (
+                      <span>{item.date}</span>
+                    )}
+                  </div>
                   <strong style={{ color: item.status ? "green" : "red" }}>
                     {item.status ? "SUCCESS" : "PROCESS TOP UP"}
                   </strong>
                   <div className="widjet-game__last-played">
-                    Rp. {item.price.toLocaleString()}
+                    {!isMobile && <>Rp. {item.price.toLocaleString()}</>}
                   </div>
                 </div>
               </div>

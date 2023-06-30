@@ -1,26 +1,26 @@
 import React from "react";
 
-export default function GameProfile({ image, deskripsi, rating, genre }) {
+export default function GameProfile({ game }) {
   return (
     <div className="game-profile-card">
       <div className="game-profile-card__media">
-        <img src={image} alt="game-profile-card" />
+        <img src={game.image} alt="game-profile-card" />
       </div>
       <div className="game-profile-card__intro">
-        <span>{deskripsi}</span>
+        <span>{game.deskripsi}</span>
       </div>
       <ul className="game-profile-card__list">
         <li>
           <div>Reviews:</div>
           <div className="game-card__rating">
-            <span>{rating}</span>
+            <span>{game.rating}</span>
             <i className="ico_star"></i>
           </div>
         </li>
       </ul>
       <ul className="game-profile-card__type">
         <li>
-          <span>{genre}</span>
+          <span>{game.genre}</span>
         </li>
       </ul>
     </div>

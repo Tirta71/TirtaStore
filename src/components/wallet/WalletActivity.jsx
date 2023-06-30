@@ -14,7 +14,6 @@ export default function WalletActivity({ historyTransaction }) {
     window.location.href = "/profile";
   };
 
-  // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = historyTransaction.slice(
@@ -109,24 +108,38 @@ export default function WalletActivity({ historyTransaction }) {
               </motion.div>
             </ul>
 
-            {/* Pagination */}
             {totalPages > 1 && (
               <div className="pagination">
+                {currentPage > 1 && (
+                  <button
+                    className="pagination__button"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  >
+                    Prev
+                  </button>
+                )}
                 {Array.from(
-                  { length: totalPages },
+                  { length: Math.min(totalPages, 3) },
                   (_, index) => index + 1
                 ).map((pageNumber) => (
-                  <motion.button
+                  <button
                     key={pageNumber}
                     className={`pagination__button ${
                       pageNumber === currentPage ? "active" : ""
                     }`}
                     onClick={() => handlePageChange(pageNumber)}
-                    variants={itemVariants}
                   >
                     {pageNumber}
-                  </motion.button>
+                  </button>
                 ))}
+                {currentPage < totalPages && (
+                  <button
+                    className="pagination__button"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                )}
               </div>
             )}
           </div>

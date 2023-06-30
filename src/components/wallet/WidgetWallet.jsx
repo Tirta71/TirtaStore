@@ -1,11 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import PageLoader from "../Loading/PageLoader";
 import "../../css/pagenation.css";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
+import PaginationWallet from "./Pagination wallet/PaginationWallet";
 export default function WidgetWallet({ dataWallet, historyWallet }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
   const [filterStatus, setFilterStatus] = useState("all");
+  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -44,6 +48,10 @@ export default function WidgetWallet({ dataWallet, historyWallet }) {
       x: 100,
     },
   };
+  const lastPageShown = 3;
+  const firstPageShown = Math.max(1, currentPage - 1);
+  const lastPage = Math.min(firstPageShown + lastPageShown - 1, totalPages);
+
   return (
     <div className="uk-width-2-3@l">
       <div className="widjet --wallet">
@@ -99,20 +107,47 @@ export default function WidgetWallet({ dataWallet, historyWallet }) {
               animate="animate"
               exit="exit"
             >
-              <div className="widjet-game">
+              <div
+                className="widjet-game"
+                style={{
+                  flexDirection: isMobile ? "row" : "",
+                  gap: "1rem",
+                }}
+              >
                 <div className="widjet-game__media">
                   <a>
-                    <img src={item.image} alt="" />
+                    <img
+                      src={item.image}
+                      alt=""
+                      style={{ width: isMobile ? "100px" : "" }}
+                    />
                   </a>
                 </div>
                 <div className="widjet-game__info">
-                  <a className="widjet-game__title">{item.title}</a>
-                  <div className="widjet-game__record">{item.date}</div>
+                  <a
+                    className="widjet-game__title"
+                    style={{ fontSize: isMobile ? "10px" : "" }}
+                  >
+                    {item.title}
+                  </a>
+                  <div
+                    className="widjet-game__record"
+                    style={{ fontSize: isMobile ? "10px" : "" }}
+                  >
+                    {isMobile ? (
+                      <span> Rp. {parseInt(item.price).toLocaleString()}</span>
+                    ) : (
+                      <span>{item.date}</span>
+                    )}
+                  </div>
+
                   <strong style={{ color: item.status ? "green" : "red" }}>
                     {item.status ? "SUCCESS" : "PENDING"}
                   </strong>
                   <div className="widjet-game__last-played">
-                    Rp. {parseInt(item.price).toLocaleString()}
+                    {!isMobile && (
+                      <>Rp. {parseInt(item.price).toLocaleString()}</>
+                    )}
                   </div>
                 </div>
               </div>
@@ -120,23 +155,14 @@ export default function WidgetWallet({ dataWallet, historyWallet }) {
           ))
         )}
 
-        {/* Pagination */}
         {filteredTransactions.length > 0 && (
-          <div className="pagination">
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-              (pageNumber) => (
-                <button
-                  key={pageNumber}
-                  className={`pagination__button ${
-                    pageNumber === currentPage ? "active" : ""
-                  }`}
-                  onClick={() => handlePageChange(pageNumber)}
-                >
-                  {pageNumber}
-                </button>
-              )
-            )}
-          </div>
+          <PaginationWallet
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+            lastPage={lastPage}
+            firstPageShown={firstPageShown}
+            totalPages={totalPages}
+          />
         )}
       </div>
     </div>

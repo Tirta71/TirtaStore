@@ -6,21 +6,18 @@ import WidgetWallet from "../components/wallet/WidgetWallet";
 import WidgetPayment from "../components/wallet/WidgetPayment";
 import axios from "axios";
 import { API_URL } from "../api";
-import PageLoader from "../components/Loading/PageLoader";
+import Swal from "sweetalert2";
 
 export default function Wallet() {
   const [dataWallet, setDataWallet] = useState([]);
   const [dataTransaction, setDataTransaction] = useState([]);
   const userId = localStorage.getItem("userId");
   const [historyWallet, setHistoryWallet] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (userId) {
         try {
-          setIsLoading(true);
-
           const [walletResult, historyResult, historyWalletResult] =
             await Promise.all([
               axios.get(`${API_URL}/${userId}`),
@@ -32,9 +29,29 @@ export default function Wallet() {
           setDataTransaction(historyResult.data);
           setHistoryWallet(historyWalletResult.data);
         } catch (error) {
-          console.error(error);
-        } finally {
-          setIsLoading(false);
+          let timerInterval;
+          Swal.fire({
+            title: "To many request !",
+            html: "Wait retrieving data! <b></b> milliseconds.",
+            timer: 10000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              const b = Swal.getHtmlContainer().querySelector("b");
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft();
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              setTimeout(() => {
+                window.location.reload();
+              }, 500);
+            }
+          });
         }
       }
     };
@@ -51,17 +68,13 @@ export default function Wallet() {
         <div className="page-content">
           <SideBar />
           <main className="page-main">
-            {isLoading ? (
-              <PageLoader />
-            ) : (
-              <div className="uk-grid" data-uk-grid>
-                <WidgetWallet
-                  dataWallet={dataWallet}
-                  historyWallet={historyWallet}
-                />
-                <WidgetPayment historyTransaction={dataTransaction} />
-              </div>
-            )}
+            <div className="uk-grid" data-uk-grid>
+              <WidgetWallet
+                dataWallet={dataWallet}
+                historyWallet={historyWallet}
+              />
+              <WidgetPayment historyTransaction={dataTransaction} />
+            </div>
           </main>
         </div>
       </div>

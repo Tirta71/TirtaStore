@@ -3,10 +3,12 @@ import { API_URL } from "../../api";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import SearchHeader from "./HeaderHome/SearchHeader";
+import ButtonLogout from "../Button Logout/ButtonLogout";
+import { useMediaQuery } from "react-responsive";
 
 export default function HeaderHome() {
   const [dataGambar, setDataGambar] = useState([]);
-
+  const isMobile = useMediaQuery({ maxWidth: 500 });
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     axios
@@ -18,22 +20,6 @@ export default function HeaderHome() {
         console.log(err);
       });
   }, [userId]);
-
-  const handleLogout = () => {
-    axios
-      .put(`${API_URL}/${userId}`, { isLogin: false })
-      .then((response) => {
-        localStorage.clear();
-        toast.success("Berhasil Logooout");
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 2000);
-      })
-      .catch((error) => {
-        console.error("Failed to update login status:", error);
-        toast.error(error);
-      });
-  };
 
   return (
     <header className="page-header">
@@ -54,21 +40,7 @@ export default function HeaderHome() {
               <img src={dataGambar} alt="profile" />
             </a>
           </div>
-          <div className="btn-logout">
-            <button
-              onClick={handleLogout}
-              style={{
-                marginLeft: "1rem",
-                border: "none",
-                backgroundColor: "#f46119",
-                padding: "0.4rem 1rem",
-                color: "white",
-                borderRadius: "1rem",
-              }}
-            >
-              Logout
-            </button>
-          </div>
+          {!isMobile && <ButtonLogout />}
         </div>
       </div>
     </header>

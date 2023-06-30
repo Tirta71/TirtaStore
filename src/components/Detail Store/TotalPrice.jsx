@@ -138,7 +138,12 @@ export default function TotalPrice({
                 });
               })
               .catch((error) => {
-                console.error("Failed to update data in history:", error);
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: "Failed To Update Data, Pls Try Again",
+                });
+                console.log(error);
               });
           })
           .catch((error) => {

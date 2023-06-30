@@ -6,21 +6,13 @@ import TotalPrice from "../../components/Detail Store/TotalPrice";
 import GameProfile from "../../components/Detail Store/GameProfile";
 import FormTopUp from "../../components/Detail Store/FORM TOP UP/FormTopUp";
 import { UserProvider } from "../../userContext";
-export default function DetailStore({
-  title,
-  genre,
-  rating,
-  image,
-  deskripsi,
-  topUpList,
-  slug,
-}) {
+export default function DetailStore({ topUpList, game }) {
   const [selectedItem, setSelectedItem] = useState(null);
 
   const handleItemSelect = (item) => {
     setSelectedItem(item);
   };
-
+  console.log("game", game);
   return (
     <UserProvider>
       <div className="page-store">
@@ -39,33 +31,28 @@ export default function DetailStore({
                   </a>
                 </li>
                 <li>
-                  <span>{title}</span>
+                  <span>{game.title}</span>
                 </li>
               </ul>
-              <h3 className="uk-text-lead">{title}</h3>
+              <h3 className="uk-text-lead">{game.title}</h3>
               <div className="uk-grid uk-grid-small" data-uk-grid>
                 <div className="uk-width-2-3@s">
                   <FormTopUp
                     topUpList={topUpList}
-                    title={title}
+                    title={game.title}
                     selectedItem={selectedItem}
                     handleItemSelect={handleItemSelect}
                   />
                 </div>
 
                 <div className="uk-width-1-3@s">
-                  <GameProfile
-                    genre={genre}
-                    rating={rating}
-                    image={image}
-                    deskripsi={deskripsi}
-                  />
+                  <GameProfile game={game} />
                   <TotalPrice
-                    title={title}
-                    genre={genre}
-                    rating={rating}
-                    image={image}
-                    slug={slug}
+                    title={game.title}
+                    genre={game.genre}
+                    rating={game.rating}
+                    image={game.image}
+                    slug={game.slug}
                     item={selectedItem ? selectedItem : 0}
                     selectedItem={selectedItem}
                   />
