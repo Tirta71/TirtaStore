@@ -91,7 +91,7 @@ export default function Activity({ profileData }) {
                     <img
                       src={item.image}
                       alt={item.title}
-                      style={{ height: isMobile ? "50px" : "" }}
+                      style={{ width: isMobile ? "100px" : "" }}
                     />
                   </a>
                 </div>
