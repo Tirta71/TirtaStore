@@ -9,6 +9,7 @@ import CekIdHiggs from "../Cek Id/CekIdHiggs";
 import CekIdPointBlank from "../Cek Id/CekIdPointBlank";
 import CekIdCodM from "../Cek Id/CekIdCodM";
 import CekIdAov from "../Cek Id/CekIdAov";
+import CekIdFreeFire from "../Cek Id/CekIdFreeFire";
 
 export default function FormTopUp({
   topUpList,
@@ -16,14 +17,6 @@ export default function FormTopUp({
   handleItemSelect,
   title,
 }) {
-  useEffect(() => {
-    if (selectedItem) {
-      console.log("Item yang dipilih:", selectedItem);
-    } else {
-      console.log("Tidak ada item yang dipilih");
-    }
-  }, [selectedItem]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -38,6 +31,7 @@ export default function FormTopUp({
       {title === "Point Blank" && <CekIdPointBlank />}
       {title === "Call Of Duty" && <CekIdCodM />}
       {title === "Arena Of Valor" && <CekIdAov />}
+      {title === "Free Fire" && <CekIdFreeFire />}
       <form onSubmit={handleSubmit}>
         <div className="widjet__body" style={{ marginTop: "2rem" }}>
           <div className="container-topUp">
@@ -79,6 +73,9 @@ export default function FormTopUp({
                       )}
                       {title === "Call Of Duty" && (
                         <span>{item.jumlah} CP</span>
+                      )}
+                      {title === "Free Fire" && (
+                        <span>{item.jumlah} Diamond</span>
                       )}
                       <span>Rp.{item.price.toLocaleString()}</span>
                     </motion.div>

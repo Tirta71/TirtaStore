@@ -450,4 +450,47 @@ export const TopUpList = [
       },
     ],
   },
+
+  {
+    id: 8,
+    game: "ff",
+    item: [
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 5,
+        price: 1000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 12,
+        price: 12000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 50,
+        price: 8000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 70,
+        price: 10000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 140,
+        price: 20000,
+      },
+      {
+        image:
+          "https://cdn1.codashop.com/S/content/common/images/denom-image/FreeFire/Freefire_diamonds.png",
+        jumlah: 355,
+        price: 50000,
+      },
+    ],
+  },
 ];

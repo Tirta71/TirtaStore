@@ -16,9 +16,6 @@ export default function TotalPrice({
   const [amount, setAmount] = useState([]);
   const { userData } = useContext(UserContext);
 
-  // Gunakan data userData di sini
-  console.log("userData:", userData);
-
   useEffect(() => {
     axios
       .get(`${API_URL}/${idUser}`)

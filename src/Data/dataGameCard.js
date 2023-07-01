@@ -82,4 +82,14 @@ export const dataGameCard = [
     slug: "aov",
     deskripsi: "Aov adalah game moba setelah mobile legend",
   },
+  {
+    id: 9,
+    title: "Free Fire",
+    genre: "FPS",
+    rating: 4.8,
+    image:
+      "https://cdn1.codashop.com/S/content/common/images/mno/freefire_new_640x241.jpg",
+    slug: "free-fire",
+    deskripsi: "Free Fire",
+  },
 ];

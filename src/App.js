@@ -23,6 +23,7 @@ import HiggsDomino from "./pages/Games/HiggsDomino";
 import PointBlank from "./pages/Games/PointBlank";
 import CodMobile from "./pages/Games/CodMobile";
 import ArenaOfValor from "./pages/Games/ArenaOfValor";
+import FreeFire from "./pages/Games/FreeFire";
 
 function App() {
   const userId = localStorage.getItem("userId");
@@ -83,6 +84,10 @@ function App() {
         />
         <Route path="/cod-m" element={<CodMobile isLoggedIn={isLoggedIn} />} />
         <Route path="/aov" element={<ArenaOfValor isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/free-fire"
+          element={<FreeFire isLoggedIn={isLoggedIn} />}
+        />
         <Route path="/admin" element={<UserForm isLoggedIn={isLoggedIn} />} />
       </Routes>
     </Router>

@@ -12,7 +12,7 @@ export default function DetailStore({ topUpList, game }) {
   const handleItemSelect = (item) => {
     setSelectedItem(item);
   };
-  console.log("game", game);
+
   return (
     <UserProvider>
       <div className="page-store">

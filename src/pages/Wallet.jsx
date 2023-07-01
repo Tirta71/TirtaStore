@@ -16,7 +16,7 @@ export default function Wallet() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userId) {
+      if (API_URL) {
         try {
           const [walletResult, historyResult, historyWalletResult] =
             await Promise.all([
@@ -73,6 +73,7 @@ export default function Wallet() {
                 dataWallet={dataWallet}
                 historyWallet={historyWallet}
               />
+
               <WidgetPayment historyTransaction={dataTransaction} />
             </div>
           </main>
