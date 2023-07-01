@@ -40,6 +40,7 @@ export default function ChildRegister({
                         placeholder="Email"
                         value={email}
                         onChange={handleEmailChange}
+                        required
                       />
                     </div>
                     <div className="uk-margin">

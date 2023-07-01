@@ -17,14 +17,18 @@ export default function TotalPrice({
   const { userData } = useContext(UserContext);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/${idUser}`)
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/${idUser}`);
         setAmount(response.data.wallet.amount);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch favorites and history:", error);
-      });
+      } catch (error) {
+        console.error("Failed to fetch wallet amount:", error);
+      }
+    };
+
+    if (idUser) {
+      fetchData();
+    }
   }, [idUser]);
 
   const addToFavorites = () => {

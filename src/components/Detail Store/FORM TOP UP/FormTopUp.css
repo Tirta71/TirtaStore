@@ -36,4 +36,7 @@
   .container-topUp {
     justify-content: center;
   }
+  .item-topup img {
+    width: 100px;
+  }
 }

@@ -22,3 +22,9 @@
 .container-valorant p {
   line-height: 1.5rem;
 }
+
+@media (max-width: 768px) {
+  .container-idVal input {
+    width: 100%;
+  }
+}

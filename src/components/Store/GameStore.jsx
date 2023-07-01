@@ -6,6 +6,9 @@ export default function GameStore({ filteredData, selectedCategory }) {
     ? filteredData.filter((game) => game.genre === selectedCategory)
     : filteredData;
 
+  // Mengurutkan game berdasarkan rating
+  const sortedGames = filteredGames.sort((a, b) => b.rating - a.rating);
+
   const containerVariants = {
     hidden: {
       opacity: 0,
@@ -38,8 +41,8 @@ export default function GameStore({ filteredData, selectedCategory }) {
       initial="hidden"
       animate="visible"
     >
-      {filteredGames.length > 0 ? (
-        filteredGames.map((game) => (
+      {sortedGames.length > 0 ? (
+        sortedGames.map((game) => (
           <motion.div
             key={game.id}
             className="game-card"

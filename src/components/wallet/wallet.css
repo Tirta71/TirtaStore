@@ -105,3 +105,17 @@
   background-color: #ccc;
   color: black;
 }
+
+.modal-item-dana {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 80%;
+  }
+}

@@ -23,50 +23,58 @@ export default function Register() {
     setPassword(e.target.value);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!username || !email || !password) {
-      toast.error("Mohon Input semua form");
+      toast.error("Mohon Isi semua form");
       return;
     }
-    axios
-      .get(API_URL)
-      .then((response) => {
-        const existingUser = response.data.find(
-          (user) => user.username === username || user.email === email
-        );
-        if (existingUser) {
-          toast.error("Username atau email sudah ada");
-        } else {
-          const userData = {
-            email,
-            username,
-            password,
-            Bio: "",
-            image:
-              "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
-            wallet: {
-              amount: 10,
-            },
-            isLogin: false,
-          };
 
-          axios
-            .post(API_URL, userData)
-            .then((response) => {
-              toast.success("Register Success");
-              console.log(response.data);
-              navigate("/login");
-            })
-            .catch((error) => {
-              console.error("Registration failed", error.response.data);
-              toast.error("Registrasi Yang bener boy");
-            });
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to fetch existing users", error.response.data);
-        toast.error("Error Boy");
-      });
+    if (!email.includes("@")) {
+      toast.error("Masukkan email dengan benar");
+      return;
+    }
+
+    if (username.length < 5) {
+      toast.error("Minimal panjang username adalah 5 karakter");
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error("Minimal panjang password adalah 8 karakter");
+      return;
+    }
+
+    try {
+      const response = await axios.get(API_URL);
+      const existingUser = response.data.find(
+        (user) => user.username === username || user.email === email
+      );
+
+      if (existingUser) {
+        toast.error("Username atau email sudah ada");
+      } else {
+        const userData = {
+          email,
+          username,
+          password,
+          Bio: "",
+          image:
+            "https://sm.ign.com/ign_ap/cover/a/avatar-gen/avatar-generations_hugw.jpg",
+          wallet: {
+            amount: 10,
+          },
+          isLogin: false,
+        };
+
+        const registerResponse = await axios.post(API_URL, userData);
+        toast.success("Registrasi berhasil");
+        console.log(registerResponse.data);
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Registrasi gagal", error.response.data);
+      toast.error("Registrasi gagal. Silakan coba lagi.");
+    }
   };
 
   return (

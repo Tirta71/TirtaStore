@@ -87,8 +87,7 @@ export const dataGameCard = [
     title: "Free Fire",
     genre: "FPS",
     rating: 4.8,
-    image:
-      "https://cdn1.codashop.com/S/content/common/images/mno/freefire_new_640x241.jpg",
+    image: "https://www.talkesport.com/wp-content/uploads/free-fire.jpeg",
     slug: "free-fire",
     deskripsi: "Free Fire",
   },

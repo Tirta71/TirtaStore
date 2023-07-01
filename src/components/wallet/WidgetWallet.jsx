@@ -128,7 +128,7 @@ export default function WidgetWallet({ dataWallet, historyWallet }) {
                     className="widjet-game__title"
                     style={{ fontSize: isMobile ? "10px" : "" }}
                   >
-                    {item.title}
+                    {item.Pembayaran}
                   </a>
                   <div
                     className="widjet-game__record"

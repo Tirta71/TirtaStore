@@ -6,9 +6,10 @@ import TotalPrice from "../../components/Detail Store/TotalPrice";
 import GameProfile from "../../components/Detail Store/GameProfile";
 import FormTopUp from "../../components/Detail Store/FORM TOP UP/FormTopUp";
 import { UserProvider } from "../../userContext";
+import { useMediaQuery } from "react-responsive";
 export default function DetailStore({ topUpList, game }) {
   const [selectedItem, setSelectedItem] = useState(null);
-
+  const isMobile = useMediaQuery({ maxWidth: 500 });
   const handleItemSelect = (item) => {
     setSelectedItem(item);
   };
@@ -46,7 +47,8 @@ export default function DetailStore({ topUpList, game }) {
                 </div>
 
                 <div className="uk-width-1-3@s">
-                  <GameProfile game={game} />
+                  {!isMobile && <GameProfile game={game} />}
+
                   <TotalPrice
                     title={game.title}
                     genre={game.genre}
